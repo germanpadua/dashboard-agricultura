@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1GKrW-3CTQ6TqonA_FPRBqI7gi5X8NM04">
+	<name>Prueba Bot</name>
+	<Schema name="__managed_schema" id="__managed_schema">
+		<SimpleField type="int" name="COL54AF401FDC26D6E9">
+			<displayName>Precisione (m)</displayName>
+		</SimpleField>
+		<SimpleField type="int" name="COL54AF401FDC424943">
+			<displayName>Precisión (m)</displayName>
+		</SimpleField>
+	</Schema>
+	<gx:CascadingStyle kml:id="__managed_style_0819B5F7273828C01B4C">
+		<styleUrl>https://earth.google.com/balloon_components/base/1.1.0.0/card_template.kml#main</styleUrl>
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_1C52C7A2413828C01B4B">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_24D0368B513828C01B4B</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0819B5F7273828C01B4C</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_54577712263828C01B54">
+		<Style>
+			<IconStyle>
+				<scale>0.9</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<text><![CDATA[<div>28 fev 2025<br></div><div><br></div>]]></text>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_37089285C63828C01B54">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_47F4DDE4703828C01B54</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_54577712263828C01B54</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_24D0368B513828C01B4B">
+		<styleUrl>https://earth.google.com/balloon_components/base/1.1.0.0/card_template.kml#main</styleUrl>
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_47F4DDE4703828C01B54">
+		<Style>
+			<IconStyle>
+				<scale>0.75</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<text><![CDATA[<div>28 fev 2025<br></div><div><br></div>]]></text>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_01DEEDF9523828C01B54">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1A33B009043828C01B54</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2FC8820D093828C01B54</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_2FC8820D093828C01B54">
+		<Style>
+			<IconStyle>
+				<scale>2.4</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1A33B009043828C01B54">
+		<Style>
+			<IconStyle>
+				<scale>2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_032B27923E3828C01B47">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_0BCB2E54893828C01B46">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_048F0FA12F3828C01B44">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_0BCB2E54893828C01B46</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_032B27923E3828C01B47</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Folder id="54AF401E68000001">
+		<name>Mapeo de infecciones por Repilo</name>
+		<open>1</open>
+		<styleUrl>#__managed_style_048F0FA12F3828C01B44</styleUrl>
+		<Placemark id="54AF401E68000002">
+			<name>Sensores de Microclima UGR</name>
+			<LookAt>
+				<longitude>-3.67939785934579</longitude>
+				<latitude>37.43506286171412</latitude>
+				<altitude>835.559177229537</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<gx:fovy>35</gx:fovy>
+				<range>380.1654512491587</range>
+				<altitudeMode>absolute</altitudeMode>
+			</LookAt>
+			<styleUrl>#__managed_style_01DEEDF9523828C01B54</styleUrl>
+			<Point>
+				<coordinates>-3.68037236652829,37.43500065020126,835.765364190066</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="54AF401E68000003">
+			<name>infeccion de repilo de test</name>
+			<LookAt>
+				<longitude>-3.68300691081174</longitude>
+				<latitude>37.4362474016494</latitude>
+				<altitude>854.5587167277588</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<gx:fovy>35</gx:fovy>
+				<range>2382.863216687401</range>
+				<altitudeMode>absolute</altitudeMode>
+			</LookAt>
+			<styleUrl>#__managed_style_37089285C63828C01B54</styleUrl>
+			<Point>
+				<coordinates>-3.6868279456703,37.43801132471567,863.8696977026457</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="54AF401E68000004">
+			<name>infección repilo</name>
+			<description><![CDATA[<div>28/03/2025</div>]]></description>
+			<LookAt>
+				<longitude>-3.680410615446222</longitude>
+				<latitude>37.43499982916551</latitude>
+				<altitude>835.5515158757662</altitude>
+				<heading>142.6636992019497</heading>
+				<tilt>0</tilt>
+				<gx:fovy>35</gx:fovy>
+				<range>113.1970891019773</range>
+				<altitudeMode>absolute</altitudeMode>
+			</LookAt>
+			<styleUrl>#__managed_style_1C52C7A2413828C01B4B</styleUrl>
+			<Point>
+				<coordinates>-3.680410615446222,37.43499982916551,835.5515158757662</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="54AF401E68000005">
+			<name>Marcador sin título</name>
+			<LookAt>
+				<longitude>-3.678396721046279</longitude>
+				<latitude>37.43521216908628</latitude>
+				<altitude>836.3416338465593</altitude>
+				<heading>358.9999992437271</heading>
+				<tilt>0</tilt>
+				<gx:fovy>35</gx:fovy>
+				<range>187.8530753325686</range>
+				<altitudeMode>absolute</altitudeMode>
+			</LookAt>
+			<styleUrl>#__managed_style_048F0FA12F3828C01B44</styleUrl>
+			<ExtendedData>
+				<SchemaData schemaUrl="#__managed_schema">
+					<SimpleData name="COL54AF401FDC424943">18</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<extrude>1</extrude>
+				<coordinates>-3.678432093374289,37.43538487928301,837.2818864940036</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="54AF401E68000006">
+			<name>infección</name>
+			<LookAt>
+				<longitude>-3.678419672307141</longitude>
+				<latitude>37.43511516778881</latitude>
+				<altitude>836.220671225855</altitude>
+				<heading>359.4674532596508</heading>
+				<tilt>0</tilt>
+				<gx:fovy>35</gx:fovy>
+				<range>500.4454408834863</range>
+				<altitudeMode>absolute</altitudeMode>
+			</LookAt>
+			<styleUrl>#__managed_style_048F0FA12F3828C01B44</styleUrl>
+			<ExtendedData>
+				<SchemaData schemaUrl="#__managed_schema">
+					<SimpleData name="COL54AF401FDC26D6E9">54</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<extrude>1</extrude>
+				<coordinates>-3.678514299999999,37.4354213,836.968365070996</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark id="54AF401E68000007">
+			<name>test 3 Jesús </name>
+			<description><![CDATA[<div>28 /03/25. &nbsp; Estado Fenologico&nbsp;</div>]]></description>
+			<LookAt>
+				<longitude>-3.678387168776383</longitude>
+				<latitude>37.43518962881275</latitude>
+				<altitude>836.4426223929588</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<gx:fovy>35</gx:fovy>
+				<range>281.1100932749468</range>
+				<altitudeMode>absolute</altitudeMode>
+			</LookAt>
+			<styleUrl>#__managed_style_1C52C7A2413828C01B4B</styleUrl>
+			<Point>
+				<coordinates>-3.678387168776383,37.43518962881275,836.4426223929588</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+	<Folder id="54AF5083C6000001">
+		<name>prueba</name>
+		<open>1</open>
+		<styleUrl>#__managed_style_048F0FA12F3828C01B44</styleUrl>
+		<Placemark id="54AF5083C7000002">
+			<name>2025:05:04 18:44:48</name>
+			<styleUrl>#__managed_style_048F0FA12F3828C01B44</styleUrl>
+			<Point>
+				<coordinates>-3.613300000000001,37.18922222222222,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
