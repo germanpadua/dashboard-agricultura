@@ -4,3 +4,6 @@ dash-leaflet
 plotly
 pandas
 geopandas
+matplotlib
+numpy
+seaborn
