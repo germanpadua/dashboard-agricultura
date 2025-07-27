@@ -4,3 +4,4 @@ __pycache__/
 .vscode/
 envTFM/
 .FS_Store
+.env
