@@ -1,0 +1,598 @@
+/* CSS personalizado para el layout de detecciones de repilo */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap');
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.metric-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.period-btn {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.period-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+}
+
+.period-btn.active {
+    background-color: #2E7D32 !important;
+    color: white !important;
+    border-color: #2E7D32 !important;
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.5) !important;
+    transform: translateY(-2px);
+}
+
+.period-btn.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.period-btn.active:hover::before {
+    left: 100%;
+}
+
+.severity-indicator-card:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2) !important;
+    transition: all 0.3s ease;
+}
+
+/* Nuevos estilos para los checkboxes de severidad */
+.severity-checkbox-item:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+    border-color: rgba(0,0,0,0.2) !important;
+}
+
+.severity-checkbox-item:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Animaciones de entrada */
+.card-animation {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.card-animation:nth-child(1) { animation-delay: 0.1s; }
+.card-animation:nth-child(2) { animation-delay: 0.2s; }
+.card-animation:nth-child(3) { animation-delay: 0.3s; }
+.card-animation:nth-child(4) { animation-delay: 0.4s; }
+
+/* Mejoras para la tabla */
+.dash-table-container {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner tr:hover {
+    background-color: #f5f5f5 !important;
+    transition: background-color 0.2s ease;
+}
+
+/* Scrollbar personalizada */
+.dash-table-container .dash-spreadsheet-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.dash-table-container .dash-spreadsheet-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.dash-table-container .dash-spreadsheet-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.dash-table-container .dash-spreadsheet-container::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Mejoras responsivas */
+@media (max-width: 768px) {
+    .period-btn {
+        min-width: 140px !important;
+        margin-bottom: 0.8rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .metric-card {
+        margin-bottom: 1rem !important;
+    }
+    
+    .severity-indicator-card {
+        margin-bottom: 1rem !important;
+    }
+    
+    .severity-checkbox-item {
+        margin: 0.2rem !important;
+        padding: 0.6rem 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .period-btn {
+        min-width: 120px !important;
+        padding: 0.6rem 1rem !important;
+    }
+    
+    .severity-checkbox-item {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+}
+
+/* Efectos de carga */
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Mejoras adicionales para el diseño profesional */
+.alert-status-card {
+    background: linear-gradient(135deg, #E3F2FD 0%, white 50%, #E3F2FD 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.alert-status-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+}
+
+/* Indicadores de severidad */
+.severity-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin: 0.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.severity-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+
+/* Tarjetas de recomendaciones */
+.recommendation-card {
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Estilos para el header */
+.header-gradient {
+    position: relative;
+    overflow: hidden;
+}
+
+.header-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(46, 125, 50, 0.05) 0%, transparent 50%, rgba(46, 125, 50, 0.05) 100%);
+    pointer-events: none;
+}
+
+/* Efectos específicos para los nuevos contenedores */
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación para líneas decorativas */
+@keyframes expandWidth {
+    from { width: 0; }
+    to { width: 50px; }
+}
+
+/* Hover para contenedores principales */
+.filter-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15) !important;
+    transition: all 0.4s ease;
+}
+
+.severity-distribution-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.18) !important;
+    transition: all 0.4s ease;
+}
+
+/* Estilos para el nuevo contenedor unificado */
+.unified-filters-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.18) !important;
+    transition: all 0.4s ease;
+}
+
+/* Estilos para las tarjetas de detalle de severidad */
+.severity-detail-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.severity-detail-card:active {
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Animación de aparición escalonada para tarjetas de severidad */
+.severity-detail-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.severity-detail-card:nth-child(1) { animation-delay: 0.1s; }
+.severity-detail-card:nth-child(2) { animation-delay: 0.2s; }
+.severity-detail-card:nth-child(3) { animation-delay: 0.3s; }
+.severity-detail-card:nth-child(4) { animation-delay: 0.4s; }
+.severity-detail-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Estilos para las nuevas tarjetas de métricas de severidad */
+.severity-metric-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.severity-metric-card:active {
+    transform: translateY(-1px) scale(1.01);
+}
+
+/* Animación de aparición para las métricas */
+.severity-metric-card {
+    animation: fadeInScale 0.6s ease-out;
+}
+
+.severity-metric-card:nth-child(1) { animation-delay: 0.1s; }
+.severity-metric-card:nth-child(2) { animation-delay: 0.2s; }
+.severity-metric-card:nth-child(3) { animation-delay: 0.3s; }
+.severity-metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.unified-filters-container .severity-checkbox-item:hover {
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12) !important;
+}
+
+/* Efectos de entrada para secciones del contenedor unificado */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.unified-filters-container > div:nth-child(2) {
+    animation: slideInUp 0.5s ease-out 0.1s both;
+}
+
+.unified-filters-container > div:nth-child(3) {
+    animation: slideInUp 0.5s ease-out 0.2s both;
+}
+
+.unified-filters-container > div:nth-child(4) {
+    animation: slideInUp 0.5s ease-out 0.3s both;
+}
+
+
+/* === Overlays de carga === */
+.map-container { position: relative; }
+#map-loading-overlay {
+  position: absolute; inset: 0;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(1px);
+  z-index: 1005; /* por encima de controles del mapa */
+}
+.map-loading-box {
+  background: #fff; border-radius: 14px;
+  padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.global-loading-body {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 30vh;
+}
+.global-loading-msg { margin-top: 8px; color: #2E7D32; font-weight: 600; }
+
+
+/* === Severidad: tarjetas con ancho fijo === */
+:root{
+  --sev-chip-width: 50%;      /* ancho por tarjeta (ajusta a tu gusto) */
+  --sev-chip-width-md: 45%;   /* tablets */
+  --sev-chip-width-sm: 40%;   /* móviles */
+}
+
+/* Contenedor de tarjetas S1..S5 */
+.sev-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  justify-content:center;   /* centradas */
+  align-items:stretch;      /* mismas alturas */
+}
+
+/* Wrapper de cada tarjeta (ancho fijo) */
+.sev-chip{
+  flex: 0 0 var(--sev-chip-width);
+  width: var(--sev-chip-width);
+}
+
+/* Responsivo */
+@media (max-width: 992px){
+  .sev-chip{ flex-basis: var(--sev-chip-width-md); width: var(--sev-chip-width-md); }
+}
+@media (max-width: 576px){
+  .sev-chip{ flex-basis: var(--sev-chip-width-sm); width: var(--sev-chip-width-sm); }
+}
+
+/* Contenedor a ~90% del ancho de la pantalla, centrado */
+.sev-area{
+  width: 90%;
+  max-width: 1400px;   /* ajusta si quieres limitar en desktop grande */
+  margin: 0 auto;
+}
+
+/* Grid auto–responsive: todas las tarjetas del mismo tamaño por fila */
+.sev-grid-auto{
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);   /* 5 iguales en pantallas grandes */
+  align-items: stretch;
+}
+
+/* Rompe columnas según ancho para mantener tarjetas legibles */
+@media (max-width: 1400px){ .sev-grid-auto{ grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 992px) { .sev-grid-auto{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .sev-grid-auto{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .sev-grid-auto{ grid-template-columns: 1fr; } }
+
+/* Las tarjetas deben estirar a la celda completa */
+.severity-metric-card{ width: 100%; height: 100%; }
+
+/* === ESTILOS MEJORADOS PARA TARJETAS DE SEVERIDAD === */
+
+/* Contenedores principales con ancho completo */
+.metrics-wide-container,
+.severity-cards-wide-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Las tarjetas deben aprovechar todo el ancho disponible */
+.severity-metric-card, 
+.severity-detail-card { 
+    width: 100% !important; 
+    height: 100% !important; 
+}
+
+/* Altura fija para todas las tarjetas de métricas (mini_chip) */
+.severity-metric-card {
+    height: 200px !important;
+    min-height: 200px !important;
+    max-height: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+}
+
+/* Altura fija para todas las tarjetas de severidad detallada (S1-S5) */
+.severity-detail-card {
+    height: 320px !important;
+    min-height: 320px !important;
+    max-height: 320px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+}
+
+/* Asegurar que las columnas usen todo el espacio disponible */
+.metrics-wide-container .col,
+.severity-cards-wide-container .col {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+/* Espaciado entre tarjetas */
+.metrics-wide-container .row,
+.severity-cards-wide-container .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+/* Responsive: asegurar que las tarjetas se vean bien en todas las pantallas */
+@media (max-width: 1400px) {
+    .metrics-wide-container,
+    .severity-cards-wide-container {
+        padding: 0 0.8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .severity-detail-card {
+        height: 280px !important;
+        min-height: 280px !important;
+        max-height: 280px !important;
+    }
+    
+    .severity-metric-card {
+        height: 180px !important;
+        min-height: 180px !important;
+        max-height: 180px !important;
+    }
+    
+    .metrics-wide-container .row,
+    .severity-cards-wide-container .row {
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .severity-detail-card {
+        height: 260px !important;
+        min-height: 260px !important;
+        max-height: 260px !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .severity-metric-card {
+        height: 160px !important;
+        min-height: 160px !important;
+        max-height: 160px !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .metrics-wide-container,
+    .severity-cards-wide-container {
+        padding: 0 0.5rem;
+    }
+    
+    .metrics-wide-container .row,
+    .severity-cards-wide-container .row {
+        --bs-gutter-x: 0.8rem;
+        --bs-gutter-y: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .severity-detail-card {
+        height: 240px !important;
+        min-height: 240px !important;
+        max-height: 240px !important;
+    }
+    
+    .severity-metric-card {
+        height: 140px !important;
+        min-height: 140px !important;
+        max-height: 140px !important;
+    }
+    
+    .metrics-wide-container .row,
+    .severity-cards-wide-container .row {
+        --bs-gutter-x: 0.6rem;
+        --bs-gutter-y: 0.6rem;
+    }
+}
+
+/* Transiciones suaves para todos los tamaños */
+.severity-detail-card,
+.severity-metric-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.2s ease !important;
+}
+
+/* Mejora visual: centrado perfecto para el contenido de las tarjetas */
+.severity-detail-card > div,
+.severity-metric-card > div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Forzar ancho completo en todos los contenedores */
+.severity-cards-wide-container,
+.metrics-wide-container {
+    box-sizing: border-box !important;
+}
+
+.severity-cards-wide-container .row,
+.metrics-wide-container .row {
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+}
+
+/* Asegurar que las columnas Bootstrap usen todo el espacio */
+.severity-cards-wide-container .col,
+.metrics-wide-container .col,
+.severity-cards-wide-container [class*="col-"],
+.metrics-wide-container [class*="col-"] {
+    box-sizing: border-box !important;
+    flex-grow: 1 !important;
+    min-width: 0 !important;
+}

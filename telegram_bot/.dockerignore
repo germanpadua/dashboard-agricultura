@@ -1,0 +1,46 @@
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Archivos temporales
+*.tmp
+temp_*
+*.pickle
+token.pickle
+
+# Archivos de configuración local
+.env
+.env.local
+
+# Capturas y archivos temporales
+Capturas/
+*.png
+*.jpg
+*.jpeg
+
+# Archivos de log
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# Docker
+Dockerfile
+.dockerignore

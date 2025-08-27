@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+  <Placemark>
+    <name>2025:05:04 18:44:48</name>
+    <Point>
+      <coordinates>-3.6133,37.18922222222222,0</coordinates>
+    </Point>
+  </Placemark>
+  </Document>
+</kml>

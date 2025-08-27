@@ -1,0 +1,92 @@
+# Archivos de entorno virtual
+envTFM/
+venv/
+env/
+.venv/
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Archivos de configuración local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+credentials.json
+
+# Logs
+*.log
+logs/*.log
+nul
+
+# Cache
+__pycache__/
+.pytest_cache/
+.coverage
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Documentación local
+*.md
+README.md
+CAMBIOS_REALIZADOS.md
+EDITCONTROL_COMPLETO_SOLUCIONADO.md
+EDITCONTROL_SOLUCION.md
+OPTIMIZACION_API_SATELITAL.md
+RESUMEN_PROYECTO_CONTEXTO.md
+STYLE_GUIDE.md
+UI_UX_IMPROVEMENTS.md
+
+# Archivos de test
+test_*.py
+*_test.py
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

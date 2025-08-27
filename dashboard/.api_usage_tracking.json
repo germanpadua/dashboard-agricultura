@@ -1,0 +1,21 @@
+{
+  "daily_usage": {
+    "2025-08-26": {
+      "requests": 10,
+      "total_cost": 41.7792,
+      "endpoints": {
+        "copernicus_sentinel": 10
+      }
+    },
+    "2025-08-27": {
+      "requests": 35,
+      "total_cost": 114.68799999999992,
+      "endpoints": {
+        "copernicus_sentinel": 35
+      }
+    }
+  },
+  "total_requests": 45,
+  "session_requests": 45,
+  "last_reset": "2025-08-26"
+}

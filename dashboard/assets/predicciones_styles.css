@@ -1,0 +1,225 @@
+/* Grid de predicción semanal optimizado - 7 tarjetas en una fila */
+.wx-grid {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(7, 1fr); /* Exactamente 7 columnas */
+  padding: 20px 0;
+  min-height: 200px; /* Altura mínima uniforme */
+}
+
+/* Responsive breakpoints optimizados */
+@media (max-width: 576px) {
+  .wx-grid { 
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+    gap: 8px;
+    padding: 10px 0;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .wx-grid { 
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en tablet pequeña */
+    gap: 10px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wx-grid { 
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas en tablet */
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .wx-grid { 
+    grid-template-columns: repeat(7, 1fr); /* 7 columnas en desktop */
+    gap: 12px;
+  }
+}
+
+/* Weather Cards Premium Styling - Tamaño optimizado */
+.wx-card { 
+  width: 100%; 
+  height: 100%;
+  min-height: 220px; /* Altura mínima uniforme */
+  max-height: 260px; /* Altura máxima controlada */
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+/* Efectos hover suaves para tarjetas compactas */
+.wx-card:hover {
+  transform: translateY(-4px) scale(1.01); /* Efecto más sutil */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+}
+
+/* Tarjetas con dimensiones optimizadas */
+.wx-card .card {
+  height: 100%;
+  min-height: 220px;
+  max-height: 260px;
+  border: none !important;
+  border-radius: 12px !important; /* Radio reducido para mejor proporción */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gradiente de fondo por riesgo */
+.wx-card .card .card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  border: none !important;
+  position: relative;
+}
+
+/* Indicador de riesgo alto */
+.wx-card .badge-danger {
+  background: #e74c3c !important;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  animation: pulse-danger 2s infinite;
+}
+
+/* Indicador de riesgo moderado */
+.wx-card .badge-warning {
+  background: #f39c12 !important;
+  box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+}
+
+/* Indicador de riesgo bajo */
+.wx-card .badge-success {
+  background: #27ae60 !important;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+/* Animación para riesgo alto */
+@keyframes pulse-danger {
+  0% { box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3); }
+  50% { box-shadow: 0 4px 16px rgba(231, 76, 60, 0.6); }
+  100% { box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3); }
+}
+
+/* Mejoras visuales para los badges */
+.wx-card .badge {
+  font-size: 10px !important;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+/* Iconos del tiempo con sombra */
+.wx-card .weather-icon {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Temperaturas con mejor contraste */
+.wx-card .temperature-display {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  font-family: 'SF Pro Display', -apple-system, sans-serif;
+  font-weight: 700;
+}
+
+/* Barras de progreso mejoradas */
+.wx-card .progress {
+  height: 10px !important;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.05) !important;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.wx-card .progress-bar {
+  background: linear-gradient(90deg, #74b9ff, #0984e3) !important;
+  border-radius: 6px;
+  transition: width 0.8s ease;
+}
+
+/* Información adicional estilizada */
+.wx-card .weather-details {
+  background: rgba(248, 249, 250, 0.5);
+  border-radius: 8px;
+  padding: 6px;
+  margin-top: 8px;
+}
+
+/* Efecto glassmorphism sutil */
+.wx-card .card-body {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Responsive mejorado con tamaños optimizados */
+@media (max-width: 576px) {
+  .wx-card {
+    min-height: 180px;
+    max-height: 200px;
+  }
+  .wx-card .card {
+    min-height: 180px;
+    max-height: 200px;
+  }
+  .wx-card .card-body {
+    padding: 10px !important;
+  }
+  .wx-card .weather-icon {
+    font-size: 1.8rem !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .wx-card {
+    min-height: 200px;
+    max-height: 230px;
+  }
+  .wx-card .weather-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .wx-card .weather-icon {
+    font-size: 2.2rem; /* Tamaño controlado para 7 columnas */
+  }
+}
+
+/* Ajustes adicionales para contenido compacto */
+.wx-card .card-header {
+  padding: 8px 12px !important;
+  flex-shrink: 0;
+}
+
+.wx-card .card-body {
+  padding: 10px 12px !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wx-card .weather-details {
+  margin-top: 6px !important;
+  padding: 4px 6px !important;
+}
+
+.wx-card .temperature-display {
+  margin-bottom: 8px !important;
+}
+
+/* Optimizar espaciado de elementos internos */
+.wx-card .weather-icon {
+  margin-bottom: 6px !important;
+}
+
+.wx-card .progress {
+  height: 8px !important;
+  margin-bottom: 6px !important;
+}

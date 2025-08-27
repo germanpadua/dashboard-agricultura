@@ -1,0 +1,53 @@
+{
+  "images": {
+    "9a9f217b-2333-474c-b0c6-4f7f5934e467_ndvi": {
+      "file_path": "dynamic_map/ndvi_scientific_9a9f217b-2333-474c-b0c6-4f7f5934e467_2025-06-01_2025-06-30_1754852297391.png",
+      "timestamp": 1754852300.0998862,
+      "array_hash": null,
+      "generated_at": "2025-08-10T20:58:20.099886"
+    },
+    "9a9f217b-2333-474c-b0c6-4f7f5934e467_anomaly": {
+      "file_path": "dynamic_map/anomaly_scientific_9a9f217b-2333-474c-b0c6-4f7f5934e467_2025-06-01_2025-06-30_1754852297391.png",
+      "timestamp": 1754852300.1018915,
+      "array_hash": null,
+      "generated_at": "2025-08-10T20:58:20.101891"
+    },
+    "197ecc37-b900-4f47-9348-b2565dd564ff_ndvi": {
+      "file_path": "dynamic_map/ndvi_scientific_197ecc37-b900-4f47-9348-b2565dd564ff_2025-06-01_2025-06-30_1754852428244.png",
+      "timestamp": 1754852430.6554122,
+      "array_hash": null,
+      "generated_at": "2025-08-10T21:00:30.655412"
+    },
+    "197ecc37-b900-4f47-9348-b2565dd564ff_anomaly": {
+      "file_path": "dynamic_map/anomaly_scientific_197ecc37-b900-4f47-9348-b2565dd564ff_2025-06-01_2025-06-30_1754852428244.png",
+      "timestamp": 1754852430.6554122,
+      "array_hash": null,
+      "generated_at": "2025-08-10T21:00:30.655412"
+    },
+    "a457530f-7f91-42c5-aee4-627847bf6139_ndvi": {
+      "file_path": "dynamic_map/ndvi_scientific_a457530f-7f91-42c5-aee4-627847bf6139_2025-06-01_2025-06-30_1754851462359.png",
+      "timestamp": 1754851464.8260858,
+      "array_hash": null,
+      "generated_at": "2025-08-10T20:44:24.826085"
+    },
+    "a457530f-7f91-42c5-aee4-627847bf6139_anomaly": {
+      "file_path": "dynamic_map/anomaly_scientific_a457530f-7f91-42c5-aee4-627847bf6139_2025-06-01_2025-06-30_1754851462359.png",
+      "timestamp": 1754851464.834629,
+      "array_hash": null,
+      "generated_at": "2025-08-10T20:44:24.834629"
+    },
+    "ce238f56-64ba-4501-b65f-656ca91df090_ndvi": {
+      "file_path": "dynamic_map/ndvi_scientific_ce238f56-64ba-4501-b65f-656ca91df090_2025-06-01_2025-06-30_1754851780051.png",
+      "timestamp": 1754851782.150658,
+      "array_hash": null,
+      "generated_at": "2025-08-10T20:49:42.150657"
+    },
+    "ce238f56-64ba-4501-b65f-656ca91df090_anomaly": {
+      "file_path": "dynamic_map/anomaly_scientific_ce238f56-64ba-4501-b65f-656ca91df090_2025-06-01_2025-06-30_1754851780051.png",
+      "timestamp": 1754851782.150658,
+      "array_hash": null,
+      "generated_at": "2025-08-10T20:49:42.150657"
+    }
+  },
+  "last_cleanup": null
+}

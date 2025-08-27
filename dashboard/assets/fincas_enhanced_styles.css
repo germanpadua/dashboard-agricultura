@@ -1,0 +1,265 @@
+/* Enhanced styles for Fincas management section */
+
+/* Improved farm cards with hover effects */
+.finca-card-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+    cursor: pointer;
+}
+
+/* Smooth animations for farm metrics cards */
+.metric-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Enhanced map container */
+.map-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.15);
+}
+
+.map-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #2E7D32, #4CAF50, #8BC34A, #FFC107);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+/* Map controls styling */
+.leaflet-control-container .leaflet-top.leaflet-left {
+    top: 10px;
+    left: 10px;
+}
+
+.leaflet-draw-toolbar a {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #2E7D32 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.leaflet-draw-toolbar a:hover {
+    background-color: rgba(46, 125, 50, 0.1) !important;
+    transform: scale(1.05);
+}
+
+/* Enhanced tooltips for map features */
+.leaflet-tooltip {
+    background-color: rgba(46, 125, 50, 0.95) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: white !important;
+    font-weight: 500 !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+/* Map popup styling */
+.leaflet-popup-content-wrapper {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+    border: 1px solid #2E7D32 !important;
+}
+
+.leaflet-popup-content {
+    margin: 12px 16px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.leaflet-popup-tip {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid #2E7D32 !important;
+}
+
+/* Crop type indicator badges */
+.crop-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0.125rem;
+}
+
+/* Enhanced button styling for farm actions */
+.btn-group-finca .btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-group-finca .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Statistics cards animations */
+@keyframes countUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.metric-card h2 {
+    animation: countUp 0.6s ease-out;
+}
+
+/* Farm list container */
+.farms-list-container {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.farms-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.farms-list-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.farms-list-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.farms-list-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Enhanced alert styling */
+.alert-enhanced {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
+}
+
+.alert-enhanced.alert-success {
+    background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+    color: #2E7D32;
+    border-left: 4px solid #4CAF50;
+}
+
+.alert-enhanced.alert-danger {
+    background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+    color: #C62828;
+    border-left: 4px solid #F44336;
+}
+
+.alert-enhanced.alert-warning {
+    background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+    color: #F57F17;
+    border-left: 4px solid #FF9800;
+}
+
+.alert-enhanced.alert-info {
+    background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+    color: #1565C0;
+    border-left: 4px solid #2196F3;
+}
+
+/* Form enhancements */
+.form-control-agri:focus {
+    border-color: #2E7D32;
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+}
+
+.form-select-agri:focus {
+    border-color: #2E7D32;
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+}
+
+/* Loading states */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2E7D32;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Enhanced modal styling */
+.modal-content-enhanced {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+.modal-header-enhanced {
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.modal-footer-enhanced {
+    border-top: 1px solid #e9ecef;
+    border-radius: 0 0 16px 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .finca-card-enhanced .btn-group-finca {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .finca-card-enhanced .btn-group-finca .btn {
+        margin-bottom: 0.25rem;
+        width: 100%;
+    }
+    
+    .metric-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Success animation for form submissions */
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.success-animation {
+    animation: successPulse 0.6s ease-in-out;
+}

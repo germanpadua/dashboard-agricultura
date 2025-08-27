@@ -1,7 +1,9 @@
-__pycache__/
-**/__pycache__/
-*.pyc
-.vscode/
+# entornos / caches
 envTFM/
-.FS_Store
-.env
+__pycache__/
+*.pyc
+.sat_cache/
+.sat_cache_intelligent/
+logs/
+cache/
+

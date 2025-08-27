@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+  <Placemark>
+    <name>2025-08-09_14-16-38_g3_37.1761_-3.6075</name>
+    <Point><coordinates>-3.607496,37.176101,0</coordinates></Point>
+  </Placemark>
+  </Document>
+</kml>

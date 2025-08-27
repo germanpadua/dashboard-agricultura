@@ -1,0 +1,19 @@
+# Telegram Bot dependencies
+pyTelegramBotAPI>=4.14.0
+
+# Google Drive API
+google-auth>=2.29.0
+google-auth-oauthlib>=1.2.0
+google-api-python-client>=2.130.0
+
+# Image processing
+Pillow>=10.0.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# HTTP requests
+requests>=2.31.0
+
+# File processing
+lxml>=4.9.0
