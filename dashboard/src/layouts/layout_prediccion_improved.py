@@ -19,6 +19,12 @@ from src.components.ui_components_improved import (
     create_chart_container
 )
 
+from src.components.help_modals import (
+    create_help_button,
+    create_info_modal,
+    MODAL_CONTENTS,
+)
+
 def normalizar(texto):
     """Normaliza texto para comparación sin acentos"""
     if not isinstance(texto, str):
@@ -44,12 +50,20 @@ def create_municipality_selector(default_municipio="Benalua"):
     
     return dbc.Card([
         dbc.CardHeader([
+
             html.Div([
-                html.I(className="fas fa-map-marker-alt me-2", 
-                      style={'color': AGRI_THEME['colors']['primary']}),
-                html.H5("Selección de Municipio", className="mb-0 d-inline")
-            ])
-        ], style={'backgroundColor': AGRI_THEME['colors']['bg_light']}),
+                    html.I(className="fas fa-map-marker-alt me-2",
+                          style={'color': AGRI_THEME['colors']['primary']}),
+                    html.H5("Selección de Municipio", className="mb-0 d-inline"),
+                ], className="d-flex align-items-center"),
+                create_help_button("modal-selector", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-selector",
+                    title=MODAL_CONTENTS['municipio']['title'],
+                    content_sections=MODAL_CONTENTS['municipio']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center", 
+                style={'backgroundColor': AGRI_THEME['colors']['bg_light']}),
         dbc.CardBody([
             dcc.Dropdown(
                 id="input-municipio",
@@ -76,11 +90,19 @@ def create_current_kpis_section():
     return dbc.Card([
         dbc.CardHeader([
             html.Div([
-                html.I(className="fas fa-thermometer-half me-2", 
-                      style={'color': AGRI_THEME['colors']['primary']}),
-                html.H4("📍 Condiciones Meteorológicas Actuales", className="mb-0 d-inline"),
-                html.Small(" • Datos en tiempo real", className="text-muted ms-2")
-            ])
+                html.Div([
+                    html.I(className="fas fa-thermometer-half me-2",
+                          style={'color': AGRI_THEME['colors']['primary']}),
+                    html.H4("📍 Condiciones Meteorológicas Actuales", className="mb-0 d-inline"),
+                    html.Small(" • Datos en tiempo real", className="text-muted ms-2"),
+                ], className="d-flex align-items-center"),
+                create_help_button("modal-weather", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-weather",
+                    title=MODAL_CONTENTS['weather']['title'],
+                    content_sections=MODAL_CONTENTS['weather']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center")
         ], style={'backgroundColor': AGRI_THEME['colors']['bg_light']}),
         dbc.CardBody([
             html.Div(id="current-weather-kpis", children=[
@@ -130,7 +152,15 @@ def create_weekly_forecast_section():
                 ], className="text-muted", style={'fontSize': '12px'})
             ], className="mt-2")
         ]),
-        subtitle="🦠 Las tarjetas incluyen: temperaturas máx/mín, probabilidad de lluvia, humedad, viento y nivel de riesgo de repilo"
+        subtitle="🦠 Las tarjetas incluyen: temperaturas máx/mín, probabilidad de lluvia, humedad, viento y nivel de riesgo de repilo",
+        actions=[
+            create_help_button("modal-pred-semanal", button_color="outline-primary"),
+            create_info_modal(
+                modal_id="modal-pred-semanal",
+                title=MODAL_CONTENTS['pred_semanal']['title'],
+                content_sections=MODAL_CONTENTS['pred_semanal']['sections'],
+            ),
+        ],
         
     )
 
@@ -141,13 +171,19 @@ def create_unified_alerts_section():
         # Header de la sección
         html.Div([
             html.Div([
-                html.I(className="fas fa-shield-alt me-3", 
+                html.I(className="fas fa-shield-alt me-3",
                       style={'fontSize': '2rem', 'color': '#28a745'}),
                 html.Div([
                     html.H3("🛡️ Sistema de Alertas Integrado", className="mb-1 fw-bold text-success"),
                 ], className="d-inline-block")
-            ], className="d-flex align-items-center mb-4")
-        ]),
+            ], className="d-flex align-items-center"),
+            create_help_button("modal-alertas", button_color="outline-warning"),
+            create_info_modal(
+                modal_id="modal-alertas",
+                title=MODAL_CONTENTS['alertas']['title'],
+                content_sections=MODAL_CONTENTS['alertas']['sections'],
+            ),
+        ], className="d-flex justify-content-between align-items-center mb-4"),
         
         # Indicadores de estado por período de tiempo
         dbc.Row([
@@ -234,7 +270,15 @@ def create_48h_forecast_section():
                     }
                 }
             )
-        ], type="default")
+        ], type="default"),
+        actions=[
+            create_help_button("modal-pred-horaria", button_color="outline-primary"),
+            create_info_modal(
+                modal_id="modal-pred-horaria",
+                title=MODAL_CONTENTS['pred_horaria']['title'],
+                content_sections=MODAL_CONTENTS['pred_horaria']['sections'],
+            ),
+        ],
     )
 
 # ===============================================================================
@@ -287,7 +331,15 @@ def build_layout_prediccion_improved(default_municipio="Benalua"):
         create_section_header(
             title="Pronóstico Meteorológico Avanzado",
             subtitle="Predicciones precisas con análisis de riesgo de enfermedades para la planificación agrícola óptima",
-            icon="fas fa-cloud-sun"
+            icon="fas fa-cloud-sun",
+            actions=[
+                create_help_button("modal-prediccion", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-prediccion",
+                    title=MODAL_CONTENTS['prediccion']['title'],
+                    content_sections=MODAL_CONTENTS['prediccion']['sections'],
+                ),
+            ],
         ),
         
         # FILA 1: CONFIGURACIÓN INICIAL - SELECTOR DE MUNICIPIO

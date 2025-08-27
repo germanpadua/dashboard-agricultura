@@ -11,7 +11,11 @@ from dash import html, dcc
 import dash_leaflet as dl
 
 from src.app.app_config import AGRI_THEME, get_card_style, get_button_style
-
+from src.components.help_modals import (
+    create_help_button,
+    create_info_modal,
+    MODAL_CONTENTS,
+)
 
 # ---------- Pequeños helpers UI ----------
 
@@ -41,7 +45,16 @@ def _card_metric(title, value_id, icon_class, color_key):
 def _filters_bar():
     """Barra de filtros con los IDs que usa detecciones.py"""
     btn_style = get_button_style('filter', 'sm')
-    return dbc.Card(
+    return dbc.Card([
+        dbc.CardHeader([
+            html.H6("Controles de visualización", className="mb-0"),
+            create_help_button("modal-detecciones-filtros", button_color="outline-primary"),
+            create_info_modal(
+                modal_id="modal-detecciones-filtros",
+                title=MODAL_CONTENTS['filtros-detecciones']['title'],
+                content_sections=MODAL_CONTENTS['filtros-detecciones']['sections'],
+            ),
+            ], className="d-flex justify-content-between align-items-center"),
         dbc.CardBody([
             dbc.Row([
                 # Botones de período
@@ -74,9 +87,8 @@ def _filters_bar():
                     )
                 ], md=4)
             ], className="g-2")
-        ]),
-        style=get_card_style()
-    )
+        ])
+    ], style=get_card_style())
 
 
 
@@ -86,33 +98,69 @@ def _filters_bar():
 def _header():
     return html.Div([
         html.Div([
-            html.I(className="fas fa-microscope me-2",
-                   style={'fontSize': '2rem', 'color': AGRI_THEME['colors']['primary']}),
-            html.H2("Detecciones de Repilo", className="d-inline",
-                    style={'fontWeight': 800, 'color': AGRI_THEME['colors']['primary']})
-        ], className="mb-2"),
-        html.P("Monitoreo de imágenes de campo recibidas por Telegram: ubicación, fecha y severidad.",
-               className="text-muted mb-3")
+            html.Div([
+                html.I(className="fas fa-microscope me-2",
+                       style={'fontSize': '2rem', 'color': AGRI_THEME['colors']['primary']}),
+                html.H2("Detecciones de Repilo", className="d-inline",
+                        style={'fontWeight': 800, 'color': AGRI_THEME['colors']['primary']})
+            ], className="d-flex align-items-center"),
+            html.Div([
+                create_help_button("modal-detecciones", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-detecciones",
+                    title=MODAL_CONTENTS['detecciones']['title'],
+                    content_sections=MODAL_CONTENTS['detecciones']['sections'],
+                ),
+            ], className="ms-auto"),
+        ], className="d-flex justify-content-between align-items-center mb-2"),
+        html.P(
+            "Monitoreo de imágenes de campo recibidas por Telegram: ubicación, fecha y severidad.",
+            className="text-muted mb-3"
+        )
     ], style=get_card_style())
 
 
 def _metrics_row():
-    return dbc.Row([
+    header = html.Div([
+        html.H6("Métricas generales", className="mb-0"),
+        create_help_button("modal-detecciones-metricas", button_color="outline-primary"),
+        create_info_modal(
+            modal_id="modal-detecciones-metricas",
+            title=MODAL_CONTENTS['metricas-detecciones']['title'],
+            content_sections=MODAL_CONTENTS['metricas-detecciones']['sections'],
+        ),
+    ], className="d-flex justify-content-between align-items-center mb-3")
+
+    row = dbc.Row([
         dbc.Col(_card_metric("Total histórico", "total-detections", "fas fa-database", "info"), lg=2, md=6, className="mb-3"),
         dbc.Col(_card_metric("Período actual", "current-detections", "fas fa-calendar-check", "primary"), lg=2, md=6, className="mb-3"),
         dbc.Col(_card_metric("Últimas 24h", "recent-detections", "fas fa-clock", "success"), lg=2, md=6, className="mb-3"),
         dbc.Col(_card_metric("Severidad media", "avg-severity", "fas fa-chart-line", "warning"), lg=2, md=6, className="mb-3"),
         dbc.Col(_card_metric("Nivel máximo", "max-severity", "fas fa-exclamation-triangle", "danger"), lg=2, md=6, className="mb-3"),
-        dbc.Col(_card_metric("Tendencia", "trend-indicator", "fas fa-chart-area", "purple"), lg=2, md=6, className="mb-3")
+        dbc.Col(_card_metric("Tendencia", "trend-indicator", "fas fa-chart-area", "purple"), lg=2, md=6, className="mb-3"),
     ])
+    
+    return html.Div([header, row])
+
 
 
 def _severity_distribution_card():
     """Tarjeta de distribución de severidad con gráfico circular"""
     return dbc.Card(
         dbc.CardBody([
-            html.H6([html.I(className="fas fa-chart-pie me-2"), "Distribución por Severidad"],
-                    className="mb-2", style={'color': AGRI_THEME['colors']['primary']}),
+            html.Div([
+                html.H6(
+                    [html.I(className="fas fa-chart-pie me-2"), "Distribución por Severidad"],
+                    className="mb-0",
+                    style={'color': AGRI_THEME['colors']['primary']}
+                ),
+                create_help_button("modal-detecciones-distribucion", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-detecciones-distribucion",
+                    title=MODAL_CONTENTS['distribucion-detecciones']['title'],
+                    content_sections=MODAL_CONTENTS['distribucion-detecciones']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center mb-2"),
             dcc.Loading(
                 dcc.Graph(id="severity-distribution", style={'height': '200px'},
                           config={'displayModeBar': False}),
@@ -126,8 +174,19 @@ def _alert_status_card():
     """Tarjeta de estado de alertas"""
     return dbc.Card(
         dbc.CardBody([
-            html.H6([html.I(className="fas fa-shield-alt me-2"), "Estado de Alertas"],
-                    className="mb-3", style={'color': AGRI_THEME['colors']['danger']}),
+            html.Div([
+                html.H6(
+                    [html.I(className="fas fa-shield-alt me-2"), "Estado de Alertas"],
+                    className="mb-0",
+                    style={'color': AGRI_THEME['colors']['danger']}
+                ),
+                create_help_button("modal-detecciones-alertas", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-detecciones-alertas",
+                    title=MODAL_CONTENTS['alertas-detecciones']['title'],
+                    content_sections=MODAL_CONTENTS['alertas-detecciones']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center mb-3"),
             html.Div(id="alert-status-content", children=[
                 html.Div([
                     html.I(className="fas fa-spinner fa-spin me-2"),
@@ -143,8 +202,17 @@ def _map_block():
     return dbc.Card(
         dbc.CardBody([
             html.Div([
-                html.H6([html.I(className="fas fa-map-marked-alt me-2"), "Mapa de detecciones"],
-                        className="mb-0", style={'color': AGRI_THEME['colors']['primary']}),
+                html.H6(
+                    [html.I(className="fas fa-map-marked-alt me-2"), "Mapa de detecciones"],
+                    className="mb-0",
+                    style={'color': AGRI_THEME['colors']['primary']}
+                ),
+                create_help_button("modal-detecciones-mapa", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-detecciones-mapa",
+                    title=MODAL_CONTENTS['mapa-detecciones']['title'],
+                    content_sections=MODAL_CONTENTS['mapa-detecciones']['sections'],
+                ),
                 dbc.Button([html.I(className="fas fa-expand-arrows-alt me-2"), "Ajustar vista"],
                            id="btn-fit-bounds", size="sm", color="secondary", className="ms-auto")
             ], className="d-flex align-items-center mb-2"),
@@ -193,8 +261,19 @@ def _map_block():
 def _timeline_block():
     return dbc.Card(
         dbc.CardBody([
-            html.H6([html.I(className="fas fa-chart-area me-2"), "Evolución temporal"], className="mb-3",
-                    style={'color': AGRI_THEME['colors']['secondary']}),
+            html.Div([
+                html.H6(
+                    [html.I(className="fas fa-chart-area me-2"), "Evolución temporal"],
+                    className="mb-0",
+                    style={'color': AGRI_THEME['colors']['secondary']}
+                ),
+                create_help_button("modal-detecciones-timeline", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-detecciones-timeline",
+                    title=MODAL_CONTENTS['timeline-detecciones']['title'],
+                    content_sections=MODAL_CONTENTS['timeline-detecciones']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center mb-3"),
             dcc.Loading(
                 dcc.Graph(id="detections-timeline", style={'height': '450px'},
                           config={'displayModeBar': True, 'displaylogo': False}),

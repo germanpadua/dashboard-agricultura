@@ -66,15 +66,41 @@ def create_info_modal(modal_id: str, title: str, content_sections: list, size: s
         dbc.ModalFooter(
             dbc.Button("Cerrar", id=f"close-{modal_id}", className="ms-auto")
         )
-    ], 
-        id=modal_id, 
+    ],
+        id=modal_id,
         size=size,
-        is_open=False
+        is_open=False,
+        zindex=2000,
+        backdrop_style={"zIndex": 1999}
     )
 
 
 # Contenidos específicos para agricultura/Repilo
 MODAL_CONTENTS = {
+    'general': {
+        'title': 'ℹ️ Configuración de Análisis',
+        'sections': [
+            {
+                'title': 'Uso de los Controles',
+                'icon': 'fa-sliders-h',
+                'content': html.P(
+                    'Ajusta el período y la agrupación para personalizar el análisis de datos.'
+                ),
+            }
+        ],
+    },
+    'weather': {
+        'title': '☁️ Estado Meteorológico Actual',
+        'sections': [
+            {
+                'title': '¿Qué muestra esta sección?',
+                'icon': 'fa-cloud-sun',
+                'content': html.P(
+                    'Presenta las condiciones meteorológicas más recientes registradas en la estación.'
+                ),
+            }
+        ],
+    },
     'temperatura': {
         'title': '🌡️ Temperatura y su Impacto en el Olivar',
         'sections': [
@@ -180,6 +206,57 @@ MODAL_CONTENTS = {
             }
         ]
     },
+    'prediccion': {
+        'title': '🔮 Pronóstico Meteorológico',
+        'sections': [
+            {
+                'title': '¿Qué ofrece este módulo?',
+                'icon': 'fa-info-circle',
+                'content': html.P(
+                    'Permite explorar las predicciones meteorológicas y el riesgo de repilo para planificar las labores agrícolas.'
+                ),
+            }
+        ],
+    },
+
+    'municipio': {
+        'title': '🏙️ Selección de Municipio',
+        'sections': [
+            {
+                'title': 'Cómo utilizarlo',
+                'icon': 'fa-map-marker-alt',
+                'content': html.P(
+                    'Elija el municipio para obtener pronósticos específicos de esa ubicación. Puede escribir para filtrar la lista.'
+                ),
+            }
+        ],
+    },
+
+    'pred_semanal': {
+        'title': '📅 Predicción Semanal',
+        'sections': [
+            {
+                'title': 'Interpretación de las tarjetas',
+                'icon': 'fa-chart-bar',
+                'content': html.P(
+                    'Cada tarjeta resume la previsión diaria con temperaturas, probabilidad de lluvia y nivel de riesgo de repilo.'
+                ),
+            }
+        ],
+    },
+
+    'pred_horaria': {
+        'title': '⏰ Evolución 48 Horas',
+        'sections': [
+            {
+                'title': 'Lectura del gráfico',
+                'icon': 'fa-chart-line',
+                'content': html.P(
+                    'Muestra la evolución prevista de temperatura, humedad y precipitación para las próximas 48 horas.'
+                ),
+            }
+        ],
+    },
     
     'ndvi': {
         'title': '🛰️ Análisis Geoespacial',
@@ -260,7 +337,260 @@ MODAL_CONTENTS = {
             }
         ]
     },
-    
+    'satelital': {
+        'title': '🛰️ Módulo de Datos Satelitales',
+        'sections': [
+            {
+                'title': '¿Para qué sirve?',
+                'icon': 'fa-info-circle',
+                'content': html.P(
+                    'Permite monitorear la salud de los cultivos mediante índices de vegetación obtenidos de imágenes Sentinel-2.'
+                ),
+            },
+            {
+                'title': 'Fuentes de datos',
+                'icon': 'fa-satellite',
+                'content': html.Ul([
+                    html.Li('Satélites Sentinel-2 (programa Copernicus)'),
+                    html.Li('Resolución espacial de 10 m por píxel'),
+                    html.Li('Actualizaciones aproximadas cada 5 días')
+                ])
+            }
+        ],
+    },
+    'config_satelital': {
+        'title': '⚙️ Configuración del Análisis',
+        'sections': [
+            {
+                'title': 'Selección de área',
+                'icon': 'fa-draw-polygon',
+                'content': html.P(
+                    'Escoge una finca registrada o dibuja un polígono en el mapa para delimitar la zona de estudio.'
+                ),
+            },
+            {
+                'title': 'Parámetros de cálculo',
+                'icon': 'fa-sliders-h',
+                'content': html.P(
+                    'Define fechas, índice de vegetación y paleta de colores antes de ejecutar el análisis.'
+                ),
+            }
+        ],
+    },
+    'mapa_satelital': {
+        'title': '🗺️ Vista Satelital',
+        'sections': [
+            {
+                'title': 'Interacción con el mapa',
+                'icon': 'fa-map',
+                'content': html.P(
+                    'Navega con el ratón, activa capas y ajusta la opacidad de los índices para explorar tu cultivo.'
+                ),
+            },
+            {
+                'title': 'Dibujo y selección',
+                'icon': 'fa-pencil-alt',
+                'content': html.P(
+                    'Utiliza las herramientas de dibujo para crear o modificar áreas de análisis directamente sobre el mapa.'
+                ),
+            }
+        ],
+    },
+    'analisis_indices': {
+        'title': '📊 Análisis de Índices',
+        'sections': [
+            {
+                'title': 'Lectura de gráficos',
+                'icon': 'fa-chart-area',
+                'content': html.P(
+                    'Los histogramas y curvas muestran la distribución y evolución de los valores de cada índice seleccionado.'
+                ),
+            }
+        ],
+    },
+    'comparacion_satelital': {
+        'title': '🔄 Comparación de Fechas',
+        'sections': [
+            {
+                'title': 'Cómo funciona',
+                'icon': 'fa-exchange-alt',
+                'content': html.P(
+                    'Selecciona dos rangos temporales e índices para evaluar mejoras o deterioros en la vegetación.'
+                ),
+            }
+        ],
+    },
+    'historico_satelital': {
+        'title': '📈 Evolución Histórica',
+        'sections': [
+            {
+                'title': 'Objetivo',
+                'icon': 'fa-chart-line',
+                'content': html.P(
+                    'Revisa cómo ha cambiado tu cultivo a lo largo del tiempo para detectar tendencias o anomalías.'
+                ),
+            }
+        ],
+    },
+    'detecciones': {
+        'title': '🧪 Detecciones de Repilo',
+        'sections': [
+            {
+                'title': '¿Qué muestra esta sección?',
+                'icon': 'fa-microscope',
+                'content': html.P(
+                    'Visualiza las incidencias reportadas por los agricultores a través del bot de Telegram, '
+                    'permitiendo un monitoreo georreferenciado de la enfermedad.'
+                ),
+            }
+        ],
+    },
+    'filtros-detecciones': {
+        'title': '🔍 Controles de Visualización',
+        'sections': [
+            {
+                'title': 'Filtrado y actualización',
+                'icon': 'fa-filter',
+                'content': html.P(
+                    'Ajusta el periodo temporal y las severidades para refinar las detecciones mostradas '
+                    'en los gráficos y el mapa.'
+                ),
+            }
+        ],
+    },
+    'metricas-detecciones': {
+        'title': '📊 Métricas de Detección',
+        'sections': [
+            {
+                'title': 'Interpretación de tarjetas',
+                'icon': 'fa-chart-bar',
+                'content': html.P(
+                    'Cada tarjeta resume estadísticas claves como totales históricos, severidad media y tendencias recientes.'
+                ),
+            }
+        ],
+    },
+    'mapa-detecciones': {
+        'title': '🗺️ Mapa de Detecciones',
+        'sections': [
+            {
+                'title': 'Capas por severidad',
+                'icon': 'fa-map-marked-alt',
+                'content': html.P(
+                    'Explora la ubicación exacta de cada reporte y activa capas para visualizar las diferentes severidades.'
+                ),
+            }
+        ],
+    },
+    'timeline-detecciones': {
+        'title': '⏳ Evolución Temporal',
+        'sections': [
+            {
+                'title': 'Comprender el gráfico',
+                'icon': 'fa-chart-line',
+                'content': html.P(
+                    'Muestra cómo han variado las detecciones en el tiempo para identificar picos y tendencias.'
+                ),
+            }
+        ],
+    },
+    'distribucion-detecciones': {
+        'title': '🧮 Distribución de Severidad',
+        'sections': [
+            {
+                'title': 'Lectura del gráfico',
+                'icon': 'fa-chart-pie',
+                'content': html.P(
+                    'El gráfico circular indica la proporción de reportes en cada nivel de severidad.'
+                ),
+            }
+        ],
+    },
+    'alertas-detecciones': {
+        'title': '🚨 Estado de Alertas',
+        'sections': [
+            {
+                'title': 'Indicadores de riesgo',
+                'icon': 'fa-exclamation-triangle',
+                'content': html.P(
+                    'Resume el nivel de atención requerido según las detecciones recientes y su gravedad.'
+                ),
+            }
+        ],
+    },
+
+    'nueva-finca': {
+        'title': '📝 Registro de Nuevas Fincas',
+        'sections': [
+            {
+                'title': 'Cómo completar el formulario',
+                'icon': 'fa-edit',
+                'content': html.P(
+                    'Asigne un nombre descriptivo a la finca. La superficie se calcula automáticamente tras dibujar el polígono.'
+                ),
+            },
+            {
+                'title': 'Guardar o limpiar',
+                'icon': 'fa-save',
+                'content': html.P(
+                    'Use "Guardar Finca" para almacenarla o "Limpiar Formulario" para reiniciar el proceso.'
+                ),
+            },
+        ],
+    },
+
+    'mapa-fincas': {
+        'title': '🗺️ Delimitación en el Mapa',
+        'sections': [
+            {
+                'title': 'Herramientas de dibujo',
+                'icon': 'fa-draw-polygon',
+                'content': html.P(
+                    'Utilice la barra del mapa para dibujar polígonos o rectángulos y cierre la forma con doble clic.'
+                ),
+            },
+            {
+                'title': 'Opciones de visualización',
+                'icon': 'fa-layer-group',
+                'content': html.P(
+                    'Cambie entre vista de calles y satélite con los botones superiores.'
+                ),
+            },
+        ],
+    },
+
+    'estadisticas': {
+        'title': '📊 Métricas de Fincas',
+        'sections': [
+            {
+                'title': 'Interpretación',
+                'icon': 'fa-chart-bar',
+                'content': html.P(
+                    'Las tarjetas muestran el número total de parcelas y su superficie acumulada. Se actualizan automáticamente.'
+                ),
+            }
+        ],
+    },
+
+    'gestion-fincas': {
+        'title': '📋 Gestión de Fincas Registradas',
+        'sections': [
+            {
+                'title': 'Acciones disponibles',
+                'icon': 'fa-tasks',
+                'content': html.P(
+                    'Selecciona una finca para centrarla en el mapa, editar su nombre o eliminarla definitivamente.'
+                ),
+            },
+            {
+                'title': 'Uso posterior',
+                'icon': 'fa-satellite',
+                'content': html.P(
+                    'Las fincas guardadas podrán utilizarse en el módulo de Datos Satelitales.'
+                ),
+            },
+        ],
+    },
     'alertas': {
         'title': '🚨 Sistema de Alertas para el Agricultor',
         'sections': [
@@ -626,3 +956,141 @@ def register_modal_callbacks(app):
         if n_open or n_close:
             return not is_open
         return is_open
+    
+
+    # Callback para modal configuración satelital
+    @app.callback(
+        Output("modal-config-satelital", "is_open"),
+        [Input("open-modal-config-satelital", "n_clicks"), Input("close-modal-config-satelital", "n_clicks")],
+        [State("modal-config-satelital", "is_open")]
+    )
+    def toggle_modal_config_satelital(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal mapa satelital
+    @app.callback(
+        Output("modal-mapa-satelital", "is_open"),
+        [Input("open-modal-mapa-satelital", "n_clicks"), Input("close-modal-mapa-satelital", "n_clicks")],
+        [State("modal-mapa-satelital", "is_open")]
+    )
+    def toggle_modal_mapa_satelital(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal análisis de índices
+    @app.callback(
+        Output("modal-analisis-indices", "is_open"),
+        [Input("open-modal-analisis-indices", "n_clicks"), Input("close-modal-analisis-indices", "n_clicks")],
+        [State("modal-analisis-indices", "is_open")]
+    )
+    def toggle_modal_analisis_indices(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal comparación satelital
+    @app.callback(
+        Output("modal-comparacion-satelital", "is_open"),
+        [Input("open-modal-comparacion-satelital", "n_clicks"), Input("close-modal-comparacion-satelital", "n_clicks")],
+        [State("modal-comparacion-satelital", "is_open")]
+    )
+    def toggle_modal_comparacion_satelital(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal histórico satelital
+    @app.callback(
+        Output("modal-historico-satelital", "is_open"),
+        [Input("open-modal-historico-satelital", "n_clicks"), Input("close-modal-historico-satelital", "n_clicks")],
+        [State("modal-historico-satelital", "is_open")]
+    )
+    def toggle_modal_historico_satelital(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+    
+    # Callback para modal detecciones (general)
+    @app.callback(
+        Output("modal-detecciones", "is_open"),
+        [Input("open-modal-detecciones", "n_clicks"), Input("close-modal-detecciones", "n_clicks")],
+        [State("modal-detecciones", "is_open")]
+    )
+    def toggle_modal_detecciones(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal filtros de detecciones
+    @app.callback(
+        Output("modal-detecciones-filtros", "is_open"),
+        [Input("open-modal-detecciones-filtros", "n_clicks"), Input("close-modal-detecciones-filtros", "n_clicks")],
+        [State("modal-detecciones-filtros", "is_open")]
+    )
+    def toggle_modal_detecciones_filtros(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal métricas de detecciones
+    @app.callback(
+        Output("modal-detecciones-metricas", "is_open"),
+        [Input("open-modal-detecciones-metricas", "n_clicks"), Input("close-modal-detecciones-metricas", "n_clicks")],
+        [State("modal-detecciones-metricas", "is_open")]
+    )
+    def toggle_modal_detecciones_metricas(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal mapa de detecciones
+    @app.callback(
+        Output("modal-detecciones-mapa", "is_open"),
+        [Input("open-modal-detecciones-mapa", "n_clicks"), Input("close-modal-detecciones-mapa", "n_clicks")],
+        [State("modal-detecciones-mapa", "is_open")]
+    )
+    def toggle_modal_detecciones_mapa(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal timeline de detecciones
+    @app.callback(
+        Output("modal-detecciones-timeline", "is_open"),
+        [Input("open-modal-detecciones-timeline", "n_clicks"), Input("close-modal-detecciones-timeline", "n_clicks")],
+        [State("modal-detecciones-timeline", "is_open")]
+    )
+    def toggle_modal_detecciones_timeline(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal distribución de severidad
+    @app.callback(
+        Output("modal-detecciones-distribucion", "is_open"),
+        [Input("open-modal-detecciones-distribucion", "n_clicks"), Input("close-modal-detecciones-distribucion", "n_clicks")],
+        [State("modal-detecciones-distribucion", "is_open")]
+    )
+    def toggle_modal_detecciones_distribucion(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+    # Callback para modal alertas de detecciones
+    @app.callback(
+        Output("modal-detecciones-alertas", "is_open"),
+        [Input("open-modal-detecciones-alertas", "n_clicks"), Input("close-modal-detecciones-alertas", "n_clicks")],
+        [State("modal-detecciones-alertas", "is_open")]
+    )
+    def toggle_modal_detecciones_alertas(n_open, n_close, is_open):
+        if n_open or n_close:
+            return not is_open
+        return is_open
+
+
+def register_callbacks(app):
+    """Alias para compatibilidad con el sistema de registro global"""
+    register_modal_callbacks(app)

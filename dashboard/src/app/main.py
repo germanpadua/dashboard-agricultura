@@ -129,6 +129,7 @@ def create_dashboard():
         "src.callbacks_refactored.prediccion",
         "src.callbacks_refactored.datos_satelitales",
         "src.callbacks_refactored.fincas",
+        "src.components.help_modals",
     ]
 
     for modname in modules:

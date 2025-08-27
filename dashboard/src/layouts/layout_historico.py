@@ -20,6 +20,11 @@ from src.components.ui_components_improved import (
     create_alert_card,
     create_chart_container
 )
+from src.components.help_modals import (
+    create_help_button,
+    create_info_modal,
+    MODAL_CONTENTS,
+)
 
 def create_current_weather_section():
     """
@@ -29,14 +34,24 @@ def create_current_weather_section():
         dbc.CardHeader([
             html.Div([
                 html.Div([
-                    html.I(className="fas fa-cloud-sun me-2", 
+                    html.I(className="fas fa-cloud-sun me-2",
                           style={'color': AGRI_THEME['colors']['warning'], 'fontSize': '1.3rem'}),
                     html.H4("Estado Meteorológico Actual", className="mb-0 d-inline fw-bold")
                 ], className="d-flex align-items-center"),
-                html.Small("Última actualización: hace 15 minutos", 
-                          className="text-muted", 
-                          style={'fontSize': '0.8rem'})
-            ], className="d-flex justify-content-between align-items-center")
+                html.Div([
+                    html.Small(
+                        "Última actualización: hace 15 minutos",
+                        className="text-muted",
+                        style={'fontSize': '0.8rem'}
+                    ),
+                    create_help_button("modal-weather", button_color="outline-primary"),
+                    create_info_modal(
+                        modal_id="modal-weather",
+                        title=MODAL_CONTENTS['weather']['title'],
+                        content_sections=MODAL_CONTENTS['weather']['sections'],
+                    ),
+                ], className="d-flex align-items-center"),
+            ], className="d-flex justify-content-between align-items-center"),
         ], style={
             'backgroundColor': AGRI_THEME['colors']['bg_light'],
             'border': 'none',
@@ -65,11 +80,18 @@ def create_controls_section():
     return dbc.Card([
         dbc.CardHeader([
             html.Div([
-                html.I(className="fas fa-cogs me-2", 
-                      style={'color': AGRI_THEME['colors']['primary'], 'fontSize': '1.2rem'}),
-                html.H5("Configuración de Análisis", className="mb-0 d-inline fw-bold")
-            ])
-        ], style={
+                    html.I(className="fas fa-cogs me-2",
+                          style={'color': AGRI_THEME['colors']['primary'], 'fontSize': '1.2rem'}),
+                    html.H5("Configuración de Análisis", className="mb-0 d-inline fw-bold"),
+                ], className="d-flex align-items-center"),
+                create_help_button("modal-general", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-general",
+                    title=MODAL_CONTENTS['general']['title'],
+                    content_sections=MODAL_CONTENTS['general']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center",
+            style={
             'backgroundColor': AGRI_THEME['colors']['bg_light'],
             'border': 'none',
             'borderBottom': f"3px solid {AGRI_THEME['colors']['primary']}"
@@ -206,10 +228,20 @@ def create_main_charts():
             dbc.Card([
                 dbc.CardHeader([
                     html.Div([
-                        html.I(className="fas fa-cloud-rain me-2", 
-                              style={'color': AGRI_THEME['colors']['info'], 'fontSize': '1.1rem'}),
-                        html.H6("Precipitación y Humedad Relativa", className="mb-0 fw-bold"),
-                    ], className="d-flex align-items-center")
+                        html.Div([
+                            html.I(
+                                className="fas fa-cloud-rain me-2",
+                                style={'color': AGRI_THEME['colors']['info'], 'fontSize': '1.1rem'}
+                            ),
+                            html.H6("Precipitación y Humedad Relativa", className="mb-0 fw-bold"),
+                        ], className="d-flex align-items-center"),
+                        create_help_button("modal-precipitacion", button_color="outline-info"),
+                        create_info_modal(
+                            modal_id="modal-precipitacion",
+                            title=MODAL_CONTENTS['precipitacion']['title'],
+                            content_sections=MODAL_CONTENTS['precipitacion']['sections'],
+                        ),
+                    ], className="d-flex justify-content-between align-items-center"),
                 ], style={
                     'backgroundColor': AGRI_THEME['colors']['bg_light'],
                     'border': 'none',
@@ -240,10 +272,20 @@ def create_main_charts():
             dbc.Card([
                 dbc.CardHeader([
                     html.Div([
-                        html.I(className="fas fa-thermometer-half me-2", 
-                              style={'color': AGRI_THEME['colors']['warning'], 'fontSize': '1.1rem'}),
-                        html.H6("Análisis de Temperatura", className="mb-0 fw-bold"),
-                    ], className="d-flex align-items-center")
+                        html.Div([
+                            html.I(
+                                className="fas fa-thermometer-half me-2",
+                                style={'color': AGRI_THEME['colors']['warning'], 'fontSize': '1.1rem'}
+                            ),
+                            html.H6("Análisis de Temperatura", className="mb-0 fw-bold"),
+                        ], className="d-flex align-items-center"),
+                        create_help_button("modal-temperatura", button_color="outline-warning"),
+                        create_info_modal(
+                            modal_id="modal-temperatura",
+                            title=MODAL_CONTENTS['temperatura']['title'],
+                            content_sections=MODAL_CONTENTS['temperatura']['sections'],
+                        ),
+                    ], className="d-flex justify-content-between align-items-center"),
                 ], style={
                     'backgroundColor': AGRI_THEME['colors']['bg_light'],
                     'border': 'none',
@@ -279,15 +321,25 @@ def create_alerts_section():
         dbc.Col([
             dbc.Card([
                 dbc.CardHeader([
+
                     html.Div([
-                        html.I(className="fas fa-bell me-2", 
-                              style={'color': AGRI_THEME['colors']['warning'], 'fontSize': '1.2rem'}),
-                        html.H5("Centro de Alertas Agrícolas", className="mb-0 d-inline fw-bold")
-                    ], className="d-flex align-items-center")
-                ], style={
-                    'backgroundColor': AGRI_THEME['colors']['bg_light'],
-                    'border': 'none',
-                    'borderBottom': f"3px solid {AGRI_THEME['colors']['warning']}"
+                            html.I(
+                                className="fas fa-bell me-2",
+                                style={'color': AGRI_THEME['colors']['warning'], 'fontSize': '1.2rem'}
+                            ),
+                            html.H5("Centro de Alertas Agrícolas", className="mb-0 d-inline fw-bold"),
+                        ], className="d-flex align-items-center"),
+                        create_help_button("modal-alertas", button_color="outline-warning"),
+                        create_info_modal(
+                            modal_id="modal-alertas",
+                            title=MODAL_CONTENTS['alertas']['title'],
+                            content_sections=MODAL_CONTENTS['alertas']['sections'],
+                        ),
+                    ], className="d-flex justify-content-between align-items-center", 
+                       style={
+                        'backgroundColor': AGRI_THEME['colors']['bg_light'],
+                        'border': 'none',
+                        'borderBottom': f"3px solid {AGRI_THEME['colors']['warning']}"
                 }),
                 dbc.CardBody([
                     html.Div(id="disease-alerts", children=[

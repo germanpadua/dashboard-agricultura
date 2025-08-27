@@ -218,7 +218,7 @@ class WeatherCache:
                 'data_size': (
                     len(data) if isinstance(data, (list, dict)) else 1
                 )
-            )
+            }
             
             with open(meta_path, 'w', encoding='utf-8') as f:
                 json.dump(metadata, f, indent=2, ensure_ascii=False)

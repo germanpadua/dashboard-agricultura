@@ -15,10 +15,6 @@ Características principales:
 • Validación de datos y feedback visual
 • Modales de confirmación para operaciones críticas
 
-Autor: Sistema de Monitoreo Agrícola
-Versión: 2.1
-Última actualización: 2025
-
 ===============================================================================
 """
 
@@ -959,35 +955,5 @@ def register_callbacks(app):
                 color="danger", duration=6000
             )
             return error_alert, no_update, no_update, no_update
-
-    # ===============================================================================
-    #                             MODAL DE AYUDA
-    # ===============================================================================
-    
-    @app.callback(
-        Output("modal-ayuda-fincas", "is_open"),
-        [
-            Input("btn-ayuda-fincas", "n_clicks"), 
-            Input("modal-ayuda-cerrar", "n_clicks")
-        ],
-        prevent_initial_call=True
-    )
-    def toggle_help_modal(open_clicks, close_clicks):
-        """
-        Controla la apertura y cierre del modal de ayuda.
-        
-        Args:
-            open_clicks (int): Clics en botón de ayuda
-            close_clicks (int): Clics en botón cerrar
-            
-        Returns:
-            bool: Estado del modal (abierto/cerrado)
-        """
-        triggered_button = ctx.triggered_id
-        
-        if triggered_button == "btn-ayuda-fincas":
-            return True
-        else:
-            return False
 
     logger.info("✅ Todos los callbacks de gestión de fincas registrados exitosamente")

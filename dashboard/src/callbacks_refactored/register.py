@@ -196,6 +196,14 @@ def register_all_callbacks(app):
             'import_path': '.prediccion',
             'register_function': 'register_callbacks',
             'critical': True   # Predicciones son funcionalidad core
+        },
+        {
+            'name': 'help_modals',
+            'description': 'Modales de ayuda e información del dashboard',
+            'icon': 'ℹ️',
+            'import_path': '..components.help_modals',
+            'register_function': 'register_modal_callbacks',
+            'critical': False  # Funcionalidad auxiliar
         }
     ]
     
@@ -251,8 +259,7 @@ def register_all_callbacks(app):
     # ===================================================================
     
     # Módulos que están temporalmente deshabilitados
-    logger.debug("ℹ️ Módulos opcionales omitidos:")
-    logger.debug("   • help_modals: Archivo no existe actualmente")
+    logger.debug("ℹ️ Módulos opcionales omitidos: ninguno")
     
     # ===================================================================
     #                    REPORTE FINAL DE REGISTRO

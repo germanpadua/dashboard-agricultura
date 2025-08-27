@@ -60,6 +60,12 @@ from src.components.ui_components_improved import (
     create_data_table_wrapper   # Envoltorio para tablas de datos
 )
 
+from src.components.help_modals import (
+    create_help_button,
+    create_info_modal,
+    MODAL_CONTENTS,
+)
+
 # ===============================================================================
 #                        FUNCIÓN PRINCIPAL DE CONSTRUCCIÓN
 # ===============================================================================
@@ -138,7 +144,15 @@ def build_layout_fincas_improved():
                 html.Div([
                     create_section_header(
                         title="Registrar Nueva Finca",
-                        icon="fas fa-plus-circle"
+                        icon="fas fa-plus-circle",
+                        actions=[
+                            create_help_button("modal-nueva-finca", button_color="outline-primary"),
+                            create_info_modal(
+                                modal_id="modal-nueva-finca",
+                                title=MODAL_CONTENTS['nueva-finca']['title'],
+                                content_sections=MODAL_CONTENTS['nueva-finca']['sections'],
+                            ),
+                        ],
                     ),
                     html.Div([
                         # ===== CAMPO NOMBRE DE FINCA =====
@@ -209,7 +223,15 @@ def build_layout_fincas_improved():
                 html.Div([
                     create_section_header(
                         title="Delimitar Finca en el Mapa",
-                        icon="fas fa-map"
+                        icon="fas fa-map",
+                        actions=[
+                            create_help_button("modal-mapa-fincas", button_color="outline-primary"),
+                            create_info_modal(
+                                modal_id="modal-mapa-fincas",
+                                title=MODAL_CONTENTS['mapa-fincas']['title'],
+                                content_sections=MODAL_CONTENTS['mapa-fincas']['sections'],
+                            ),
+                        ],
                     ),
                     html.Div([
                         # ===== INSTRUCCIONES DE USO =====
@@ -314,6 +336,18 @@ def build_layout_fincas_improved():
         
         # Contenedor de métricas (poblado por callbacks)
         html.Div([
+            create_section_header(
+                title="Métricas de Fincas",
+                icon="fas fa-chart-bar",
+                actions=[
+                    create_help_button("modal-estadisticas", button_color="outline-primary"),
+                    create_info_modal(
+                        modal_id="modal-estadisticas",
+                        title=MODAL_CONTENTS['estadisticas']['title'],
+                        content_sections=MODAL_CONTENTS['estadisticas']['sections'],
+                    ),
+                ],
+            ),
             dbc.Row(id="fincas-metrics", className="mb-4")
         ]),
 
@@ -324,13 +358,23 @@ def build_layout_fincas_improved():
         dbc.Row([
             dbc.Col([
                 dbc.Card([
-                    dbc.CardHeader([
+                    dbc.CardHeader(
                         html.Div([
-                            html.I(className="fas fa-list-alt me-2",
-                                   style={'color': AGRI_THEME['colors']['primary']}),
-                            html.H4("Fincas Registradas", className="mb-0 d-inline")
-                        ])
-                    ], style={'backgroundColor': AGRI_THEME['colors']['bg_light']}),
+                            html.Div([
+                                html.I(className="fas fa-list-alt me-2", style={'color': AGRI_THEME['colors']['primary']}),
+                                html.H4("Fincas Registradas", className="mb-0 d-inline")
+                            ], className="d-flex align-items-center"),
+                            html.Div([
+                                create_help_button("modal-gestion-fincas", button_color="outline-primary"),
+                                create_info_modal(
+                                    modal_id="modal-gestion-fincas",
+                                    title=MODAL_CONTENTS['gestion-fincas']['title'],
+                                    content_sections=MODAL_CONTENTS['gestion-fincas']['sections'],
+                                ),
+                            ], className="ms-auto"),
+                        ], className="d-flex justify-content-between align-items-center"),
+                        style={'backgroundColor': AGRI_THEME['colors']['bg_light']}
+                    ),
                     dbc.CardBody([
                         html.Div(id="lista-fincas-gestion", children=[
                             dbc.Alert([
@@ -415,51 +459,7 @@ def build_layout_fincas_improved():
             ])
         ], id="modal-editar-finca", is_open=False),
 
-        # Modal de ayuda
-        dbc.Modal([
-            dbc.ModalHeader(dbc.ModalTitle([
-                html.I(className="fas fa-question-circle me-2"),
-                "Guía de Gestión de Fincas"
-            ])),
-            dbc.ModalBody([
-                html.H6("🗺️ Uso del Mapa", className="text-primary"),
-                html.P("• Use los botones 'Calles' y 'Satélite' para cambiar la vista del mapa"),
-                html.P("• Haga clic en el icono de polígono para dibujar y delimitar su finca"),
-                html.P("• Use 'Eliminar' en la barra de herramientas para borrar el polígono"),
-                html.Hr(),
-                html.H6("📝 Gestión de Fincas", className="text-success"),
-                html.P("• Complete el formulario con los datos de su finca"),
-                html.P("• Las fincas aparecerán en la lista después de guardarlas"),
-                html.P("• Seleccione fincas existentes para editarlas o eliminarlas"),
-                html.Hr(),
-                html.H6("📊 Datos Satelitales", className="text-warning"),
-                html.P("• Las fincas registradas estarán disponibles en 'Datos Satelitales'"),
-                html.P("• Podrá realizar análisis NDVI y detección de anomalías")
-            ]),
-            dbc.ModalFooter([dbc.Button("Entendido", id="modal-ayuda-cerrar", color="primary")])
-        ], id="modal-ayuda-fincas", is_open=False, size="lg"),
-
-        # ===============================================================
-        #                    SISTEMA DE AYUDA FLOTANTE
-        # ===============================================================
         
-        html.Div([
-            dbc.Button(
-                [html.I(className="fas fa-question-circle")],
-                id="btn-ayuda-fincas",
-                color="info",
-                size="lg",
-                className="rounded-circle shadow",
-                style={
-                    'position': 'fixed', 
-                    'bottom': '20px', 
-                    'right': '20px',
-                    'zIndex': '1000', 
-                    'width': '60px', 
-                    'height': '60px'
-                }
-            )
-        ])
     ], style={'fontFamily': AGRI_THEME['fonts']['primary'], 'padding': '1rem 0'})
 
 # ===============================================================================

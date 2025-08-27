@@ -31,9 +31,7 @@ Integración con callbacks:
 • IDs de componentes alineados para callbacks específicos
 • Stores compartidos para intercambio de datos eficiente
 
-Autor: Sistema de Monitoreo Agrícola
-Versión: 2.1 Enhanced
-Última actualización: 2025
+
 
 ===============================================================================
 """
@@ -56,7 +54,11 @@ from src.utils.finca_store import list_fincas
 from src.app.app_config import AGRI_THEME
 import config_colormaps as cfg
 from utils.api_quota_manager import get_quota_monitor
-
+from src.components.help_modals import (
+    create_help_button,
+    create_info_modal,
+    MODAL_CONTENTS,
+)
 # Configuración de logging
 logger = logging.getLogger(__name__)
 
@@ -732,10 +734,18 @@ def build_scientific_satellite_layout():
         dbc.CardBody([
             dbc.Row([
                 dbc.Col([
-                    html.H4([
-                        html.I(className="fas fa-satellite me-3", style={"color": AGRI_THEME["colors"]["primary"]}),
-                        "Análisis Satelital de Cultivos"
-                    ], className="mb-2", style={"color": AGRI_THEME["colors"]["text_primary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                    html.Div([
+                        html.H4([
+                            html.I(className="fas fa-satellite me-3", style={"color": AGRI_THEME["colors"]["primary"]}),
+                            "Análisis Satelital de Cultivos"
+                        ], className="mb-2", style={"color": AGRI_THEME["colors"]["text_primary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                        create_help_button("modal-satelital", button_color="outline-primary"),
+                        create_info_modal(
+                            modal_id="modal-satelital",
+                            title=MODAL_CONTENTS['satelital']['title'],
+                            content_sections=MODAL_CONTENTS['satelital']['sections'],
+                        ),
+                    ], className="d-flex align-items-center justify-content-between"),
                     html.P([
                         "Monitorea la salud y evolución de tus cultivos usando imágenes satelitales. ",
                         "Los índices de vegetación te ayudan a tomar decisiones informadas sobre riego, fertilización y tratamientos."
@@ -842,10 +852,18 @@ def build_scientific_satellite_layout():
         
         # Sección 1: Configuración básica
         html.Div([
-            html.H5([
-                html.I(className="fas fa-cog me-2"),
-                "Configuración del Análisis"
-            ], className="mb-3", style={"color": AGRI_THEME["colors"]["primary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+            html.Div([
+                html.H5([
+                    html.I(className="fas fa-cog me-2"),
+                    "Configuración del Análisis"
+                ], className="mb-3", style={"color": AGRI_THEME["colors"]["primary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                create_help_button("modal-config-satelital", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-config-satelital",
+                    title=MODAL_CONTENTS['config_satelital']['title'],
+                    content_sections=MODAL_CONTENTS['config_satelital']['sections'],
+                ),
+            ], className="d-flex align-items-center justify-content-between"),
             controls_top,
             advanced_controls,
         ], className="mb-4"),
@@ -881,10 +899,18 @@ def build_scientific_satellite_layout():
         
         # Sección 2: Mapa y KPIs principales con mejor organización
         html.Div([
-            html.H5([
-                html.I(className="fas fa-map me-2"),
-                "Vista Satelital y Estado del Cultivo"
-            ], className="mb-3", style={"color": AGRI_THEME["colors"]["primary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+            html.Div([
+                html.H5([
+                    html.I(className="fas fa-map me-2"),
+                    "Vista Satelital y Estado del Cultivo"
+                ], className="mb-3", style={"color": AGRI_THEME["colors"]["primary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                create_help_button("modal-mapa-satelital", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-mapa-satelital",
+                    title=MODAL_CONTENTS['mapa_satelital']['title'],
+                    content_sections=MODAL_CONTENTS['mapa_satelital']['sections'],
+                ),
+            ], className="d-flex align-items-center justify-content-between"),
             
             # Mapa a ancho completo para mejor visualización
             dbc.Row([
@@ -908,10 +934,18 @@ def build_scientific_satellite_layout():
         
         # Sección 3: Gráficos de análisis mejorados
         html.Div([
-            html.H5([
-                html.I(className="fas fa-chart-area me-2"),
-                "Análisis Detallado de los Índices"
-            ], className="mb-3", style={"color": AGRI_THEME["colors"]["secondary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+            html.Div([
+                html.H5([
+                    html.I(className="fas fa-chart-area me-2"),
+                    "Análisis Detallado de los Índices"
+                ], className="mb-3", style={"color": AGRI_THEME["colors"]["secondary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                create_help_button("modal-analisis-indices", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-analisis-indices",
+                    title=MODAL_CONTENTS['analisis_indices']['title'],
+                    content_sections=MODAL_CONTENTS['analisis_indices']['sections'],
+                ),
+            ], className="d-flex align-items-center justify-content-between"),
             html.P([
                 "📊 Visualizaciones avanzadas que te ayudan a interpretar el estado de tu cultivo. ",
                 "Los histogramas muestran la distribución de valores y las tendencias de cambio."
@@ -932,10 +966,18 @@ def build_scientific_satellite_layout():
         
         # Sección 4: Comparación temporal simplificada
         html.Div([
-            html.H5([
-                html.I(className="fas fa-exchange-alt me-2"),
-                "Comparar Dos Fechas"
-            ], className="mb-3", style={"color": AGRI_THEME["colors"]["info"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+            html.Div([
+                html.H5([
+                    html.I(className="fas fa-exchange-alt me-2"),
+                    "Comparar Dos Fechas"
+                ], className="mb-3", style={"color": AGRI_THEME["colors"]["info"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                create_help_button("modal-comparacion-satelital", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-comparacion-satelital",
+                    title=MODAL_CONTENTS['comparacion_satelital']['title'],
+                    content_sections=MODAL_CONTENTS['comparacion_satelital']['sections'],
+                ),
+            ], className="d-flex align-items-center justify-content-between"),
             html.P([
                 "¿Has aplicado algún tratamiento? ¿Quieres ver si las lluvias han ayudado? ",
                 "Compara dos fechas para ver si tu cultivo ha mejorado o empeorado."
@@ -950,10 +992,18 @@ def build_scientific_satellite_layout():
         
         # Sección 6: Análisis histórico simplificado
         html.Div([
-            html.H5([
-                html.I(className="fas fa-chart-line me-2"),
-                "Evolución de tu Cultivo"
-            ], className="mb-3", style={"color": AGRI_THEME["colors"]["secondary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+            html.Div([
+                html.H5([
+                    html.I(className="fas fa-chart-line me-2"),
+                    "Evolución de tu Cultivo"
+                ], className="mb-3", style={"color": AGRI_THEME["colors"]["secondary"], "fontFamily": AGRI_THEME["fonts"]["primary"]}),
+                create_help_button("modal-historico-satelital", button_color="outline-primary"),
+                create_info_modal(
+                    modal_id="modal-historico-satelital",
+                    title=MODAL_CONTENTS['historico_satelital']['title'],
+                    content_sections=MODAL_CONTENTS['historico_satelital']['sections'],
+                ),
+            ], className="d-flex align-items-center justify-content-between"),
             html.P([
                 "📈 Ve cómo ha cambiado tu cultivo en los últimos meses. ",
                 "Identifica las mejores épocas de crecimiento y detecta problemas tempranos."
