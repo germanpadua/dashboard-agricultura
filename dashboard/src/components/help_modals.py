@@ -1274,70 +1274,6 @@ MODAL_CONTENTS = {
                 'content': html.Div([
                     html.P([
                         "Las tarjetas de métricas proporcionan un resumen estadístico completo ",
-                        "de las detecciones de repilo registradas en el sistema:"
-                    ]),
-                    dbc.Row([
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardHeader([
-                                    html.I(className="fas fa-calculator me-2"),
-                                    html.Strong("Total de Detecciones")
-                                ]),
-                                dbc.CardBody([
-                                    html.P("Número total de reportes registrados en el período seleccionado", className="small")
-                                ])
-                            ])
-                        ], md=6),
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardHeader([
-                                    html.I(className="fas fa-chart-line me-2"),
-                                    html.Strong("Severidad Promedio")
-                                ]),
-                                dbc.CardBody([
-                                    html.P("Nivel medio de severidad de todas las detecciones (1-5)", className="small")
-                                ])
-                            ])
-                        ], md=6)
-                    ], className="mb-3"),
-                    dbc.Row([
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardHeader([
-                                    html.I(className="fas fa-calendar-alt me-2"),
-                                    html.Strong("Detecciones Recientes")
-                                ]),
-                                dbc.CardBody([
-                                    html.P("Número de reportes en los últimos 7 días", className="small")
-                                ])
-                            ])
-                        ], md=6),
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardHeader([
-                                    html.I(className="fas fa-trending-up me-2"),
-                                    html.Strong("Tendencia")
-                                ]),
-                                dbc.CardBody([
-                                    html.P("Indicador de aumento o disminución de casos", className="small")
-                                ])
-                            ])
-                        ], md=6)
-                    ])
-                ])
-            }
-        ]
-    },
-    
-    'detecciones-metricas': {
-        'title': '📊 Métricas de Detección de Enfermedades',
-        'sections': [
-            {
-                'title': 'Interpretación de las Tarjetas Métricas',
-                'icon': 'fa-chart-bar',
-                'content': html.Div([
-                    html.P([
-                        "Las tarjetas de métricas proporcionan un resumen estadístico completo ",
                         "de las detecciones de repilo registradas en el sistema."
                     ]),
                     dbc.Alert([
@@ -1350,7 +1286,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'detecciones-mapa': {
+    'mapa-detecciones': {
         'title': '🗺️ Mapa de Detecciones Georreferenciadas',
         'sections': [
             {
@@ -1377,7 +1313,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'detecciones-timeline': {
+    'timeline-detecciones': {
         'title': '⏳ Evolución Temporal de Detecciones',
         'sections': [
             {
@@ -1401,7 +1337,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'detecciones-distribucion': {
+    'distribucion-detecciones': {
         'title': '🧮 Distribución de Severidad',
         'sections': [
             {
@@ -1429,7 +1365,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'detecciones-alertas': {
+    'alertas-detecciones': {
         'title': '🚨 Estado de Alertas por Detecciones',
         'sections': [
             {
@@ -1510,7 +1446,7 @@ MODAL_CONTENTS = {
     # ============================================================================
     #                         MODALES ADICIONALES PARA DATOS SATELITALES
     # ============================================================================
-    'config-satelital': {
+    'config_satelital': {
         'title': '⚙️ Configuración del Análisis Satelital',
         'sections': [
             {
@@ -1538,23 +1474,8 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'config_satelital': {
-        'title': '⚙️ Configuración del Análisis Satelital',
-        'sections': [
-            {
-                'title': 'Parámetros de Configuración',
-                'icon': 'fa-sliders-h',
-                'content': html.Div([
-                    html.P([
-                        "Configure los parámetros del análisis satelital para obtener ",
-                        "resultados específicos según sus necesidades agrícolas."
-                    ])
-                ])
-            }
-        ]
-    },
     
-    'mapa-satelital': {
+    'mapa_satelital': {
         'title': '🗺️ Mapa Satelital Interactivo',
         'sections': [
             {
@@ -1577,7 +1498,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'analisis-indices': {
+    'analisis_indices': {
         'title': '📊 Análisis de Índices de Vegetación',
         'sections': [
             {
@@ -1599,7 +1520,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'comparacion-satelital': {
+    'comparacion_satelital': {
         'title': '🔄 Comparación Temporal Satelital',
         'sections': [
             {
@@ -1622,7 +1543,7 @@ MODAL_CONTENTS = {
         ]
     },
     
-    'historico-satelital': {
+    'historico_satelital': {
         'title': '📈 Histórico de Evolución Satelital',
         'sections': [
             {
@@ -1730,23 +1651,31 @@ def register_modal_callbacks(app):
         de la aplicación para registrar correctamente todos los callbacks.
     """
     
-    # Lista de todos los tipos de modales definidos en MODAL_CONTENTS
-    modal_types = list(MODAL_CONTENTS.keys())
-    
-    # Modales adicionales no incluidos en MODAL_CONTENTS pero usados en layouts
-    additional_modals = [
-        'config-satelital', 'mapa-satelital', 'analisis-indices', 'comparacion-satelital',
-        'historico-satelital', 'detecciones-filtros', 'detecciones-metricas', 
-        'detecciones-mapa', 'detecciones-timeline', 'detecciones-distribucion',
-        'detecciones-alertas', 'estadisticas', 'pred-semanal', 'pred-horaria'
-    ]
-    
-    # Combinar todas las listas de modales
-    all_modals = modal_types + additional_modals
+    # Mapeo entre claves de contenido y los IDs base usados en los layouts
+    modal_id_map = {
+        'municipio': 'selector',
+        'pred_semanal': 'pred-semanal',
+        'pred_horaria': 'pred-horaria',
+        'filtros-detecciones': 'detecciones-filtros',
+        'metricas-detecciones': 'detecciones-metricas',
+        'mapa-detecciones': 'detecciones-mapa',
+        'timeline-detecciones': 'detecciones-timeline',
+        'distribucion-detecciones': 'detecciones-distribucion',
+        'alertas-detecciones': 'detecciones-alertas',
+    }
+
+    # Construir lista de IDs base de modales
+    modal_bases = []
+    for modal_key in MODAL_CONTENTS.keys():
+        base = modal_id_map.get(modal_key, modal_key.replace('_', '-'))
+        modal_bases.append(base)
+
+    # Eliminar duplicados preservando el orden
+    all_modals = list(dict.fromkeys(modal_bases))
     
     # Registrar callback para cada modal
-    for modal_type in all_modals:
-        modal_id = f"modal-{modal_type}"
+    for modal_base in all_modals:
+        modal_id = f"modal-{modal_base}"
         open_button_id = f"open-{modal_id}"
         close_button_id = f"close-{modal_id}"
         close_alt_button_id = f"close-{modal_id}-alt"
@@ -1778,6 +1707,7 @@ def register_modal_callbacks(app):
                 # Determinar qué botón fue presionado
                 if n_open or n_close or n_close_alt:
                     return not is_open
+                
                 return is_open
                 
         except Exception as e:
