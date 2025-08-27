@@ -15,6 +15,12 @@ Características principales:
 • Validación de datos y feedback visual
 • Modales de confirmación para operaciones críticas
 
+Autor: German Jose Padua Pleguezuelo
+Universidad de Granada
+Master en Ciencia de Datos
+
+Fichero: src.callbacks_refactored.fincas.py
+
 ===============================================================================
 """
 

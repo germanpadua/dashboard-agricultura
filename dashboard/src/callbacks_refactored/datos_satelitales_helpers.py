@@ -30,8 +30,11 @@ de análisis satelital, organizadas por categorías funcionales:
    - Generación de frames para animaciones
    - Codificación en formatos GIF/WebP
 
-Autor: Dashboard Agricultura
-Fecha: 2024
+Autor: German Jose Padua Pleguezuelo
+Universidad de Granada
+Master en Ciencia de Datos
+
+Fichero: src.callbacks_refactored.datos_satelitales_helpers.py
 """
 
 import os

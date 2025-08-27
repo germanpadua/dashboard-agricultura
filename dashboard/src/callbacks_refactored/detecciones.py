@@ -15,9 +15,11 @@ Características principales:
 • Filtros por severidad y período
 • Alertas automáticas de riesgo
 
-Autor: Sistema de Monitoreo Agrícola
-Versión: 2.1
-Última actualización: 2025
+Autor: German Jose Padua Pleguezuelo
+Universidad de Granada
+Master en Ciencia de Datos
+
+Fichero: src.callbacks_refactored.detecciones.py
 
 ===============================================================================
 """

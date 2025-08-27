@@ -1,6 +1,12 @@
 """
 Callbacks específicos del layout de datos satelitales
 Maneja NDVI, anomalías, overlays PNG, análisis temporal y calidad de imagen
+
+Autor: German Jose Padua Pleguezuelo
+Universidad de Granada
+Master en Ciencia de Datos
+
+Fichero: src.callbacks_refactored.datos_satelitales.py
 """
 
 import os

@@ -3,7 +3,7 @@ Autor: German Jose Padua Pleguezuelo
 Universidad de Granada
 Master en Ciencia de Datos
 
-Fichero: main.py
+Fichero: src.app.main.py
 """
 
 # Imports

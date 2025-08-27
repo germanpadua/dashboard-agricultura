@@ -16,9 +16,11 @@ Características principales:
 • Preprocesamiento de datos para layouts
 • Sistema de logging detallado
 
-Autor: Sistema de Monitoreo Agrícola
-Versión: 2.1
-Última actualización: 2025
+Autor: German Jose Padua Pleguezuelo
+Universidad de Granada
+Master en Ciencia de Datos
+
+Fichero: src.callbacks_refactored.main.py
 
 ===============================================================================
 """

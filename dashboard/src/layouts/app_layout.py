@@ -186,7 +186,7 @@ def create_main_layout(df=None, kml_geojson=None):
     """
     # Crear contenido inicial del layout histórico para que aparezca algo inmediatamente
     try:
-        from src.layouts.layout_historico_improved import build_layout_historico_improved
+        from src.layouts.layout_historico import build_layout_historico_improved
         df_simple = pd.DataFrame(df) if df is not None else pd.DataFrame()
         print("Contenido inicial del layout histórico creado.")
         initial_content = build_layout_historico_improved(df_simple, kml_geojson or {})

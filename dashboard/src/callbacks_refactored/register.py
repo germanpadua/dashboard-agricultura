@@ -23,9 +23,11 @@ Arquitectura modular:
 • historico.py: Análisis de datos meteorológicos históricos
 • prediccion.py: Modelos predictivos y pronósticos
 
-Autor: Sistema de Monitoreo Agrícola
-Versión: 2.1
-Última actualización: 2025
+Autor: German Jose Padua Pleguezuelo
+Universidad de Granada
+Master en Ciencia de Datos
+
+Fichero: src.callbacks_refactored.register.py
 
 ===============================================================================
 """
