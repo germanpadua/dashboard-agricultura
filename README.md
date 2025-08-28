@@ -22,7 +22,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Visualización orientada a agricultores** con métricas simplificadas
 
 ![Análisis Satelital](assets/screenshots/satellite-analysis.png)
-*📷 Recomendado: Captura mostrando el mapa satelital con overlay NDVI, gráficos de evolución y KPIs para agricultores*
+*📷 Captura mostrando el mapa satelital con overlay NDVI, gráficos de evolución y KPIs para agricultores*
 
 ### 🌤️ **Predicciones Meteorológicas Inteligentes**
 - **Datos AEMET** en tiempo real con predicciones a 7 días
@@ -32,7 +32,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Sistema de caché inteligente** para optimizar consultas
 
 ![Predicciones Meteorológicas](assets/screenshots/weather-forecast.png)
-*📷 Recomendado: Captura del módulo meteorológico mostrando las weather cards, gráfico 48h con zonas de riesgo y sistema de alertas*
+*📷 Captura del módulo meteorológico mostrando las weather cards, gráfico 48h con zonas de riesgo y sistema de alertas*
 
 ### 🏡 **Gestión Integral de Fincas**
 - **Registro georreferenciado** dibujando perímetros en mapas interactivos
@@ -42,7 +42,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Sistema de métricas** dinámicas por explotación
 
 ![Gestión de Fincas](assets/screenshots/farm-management.png)
-*📷 Recomendado: Captura mostrando el mapa con fincas registradas, formulario de nueva finca y tarjetas de fincas existentes*
+*📷 Captura mostrando el mapa con fincas registradas, formulario de nueva finca y tarjetas de fincas existentes*
 
 ### 📈 **Análisis Histórico Temporal**
 - **Series temporales** de variables meteorológicas y satelitales
@@ -52,7 +52,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Reportes automáticos** de tendencias y anomalías
 
 ![Análisis Histórico](assets/screenshots/historical-analysis.png)
-*📷 Recomendado: Captura de gráficos de evolución temporal, análisis de tendencias y comparaciones interanuales*
+*📷 Captura de gráficos de evolución temporal, análisis de tendencias y comparaciones interanuales*
 
 ### 📱 **Sistema de Detección de Enfermedades**
 - **Bot de Telegram** independiente para registro desde campo
@@ -64,7 +64,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Sistema KML** para exportar detecciones a Google Earth
 
 ![Sistema de Detecciones](assets/screenshots/disease-detection.png)
-*📷 Recomendado: Captura del dashboard de detecciones mostrando el mapa con incidencias, galería de fotos y estadísticas*
+*📷  Captura del dashboard de detecciones mostrando el mapa con incidencias, galería de fotos y estadísticas*
 
 ---
 
@@ -114,9 +114,7 @@ dashboard-agricultura/
 ## ⚡ Instalación y Configuración
 
 ### **Requisitos del Sistema**
-- **Python 3.8+** (recomendado 3.11)
-- **4GB RAM** mínimo para procesamiento de imágenes satelitales
-- **2GB libres** para caché de datos
+
 - **Conexión estable** a Internet para descarga de datos
 
 ### **1. Instalación Base**
@@ -131,12 +129,8 @@ envTFM\Scripts\activate        # Windows
 # source envTFM/bin/activate   # Linux/Mac
 
 # Instalar dependencias del dashboard
-cd dashboard
 pip install -r requirements.txt
 
-# Instalar dependencias del bot de Telegram (opcional)
-cd ../telegram_bot
-pip install -r requirements.txt
 ```
 
 ### **2. Configuración de APIs**
@@ -149,7 +143,6 @@ COPERNICUS_CLIENT_ID=tu_client_id_aqui
 COPERNICUS_CLIENT_SECRET=tu_client_secret_aqui
 
 # ===== OPCIONAL: APIs adicionales =====
-OPENWEATHER_API_KEY=tu_api_key_openweather
 AEMET_API_KEY=tu_api_key_aemet
 
 # ===== CONFIGURACIÓN SERVIDOR =====
@@ -172,40 +165,12 @@ GOOGLE_APPLICATION_CREDENTIALS=./service_account.json
 **🔑 Obtener credenciales**:
 - **Copernicus**: [dataspace.copernicus.eu](https://dataspace.copernicus.eu/) (gratuito)
 - **AEMET**: [opendata.aemet.es](https://opendata.aemet.es/) (gratuito)
-- **OpenWeather**: [openweathermap.org](https://openweathermap.org/) (gratuito hasta 1000 calls/día)
 - **Telegram Bot**: [@BotFather](https://t.me/botfather) en Telegram
 
 ### **3. Ejecución**
 
-**Método 1: Ejecución Individual**
-```bash
-# Solo Dashboard
-cd dashboard
-python -m src.app.main
-# Dashboard disponible en: http://localhost:8050
-
-# Solo Bot de Telegram
-cd telegram_bot
-python main.py
-```
-
-**Método 2: Docker Compose (Recomendado para Producción)**
-```bash
-# Construir y ejecutar ambos servicios
-docker-compose up --build
-
-# Solo el dashboard
-docker-compose up web
-
-# Solo el bot
-docker-compose up bot
-```
-
----
-
 ## 🐳 Despliegue con Docker
 
-### **Docker Compose - Solución Completa**
 ```bash
 # Clonar repositorio
 git clone https://github.com/germanpadua/dashboard-agricultura.git
@@ -225,11 +190,9 @@ docker-compose up --build
 ```
 
 ### **Servicios Incluidos**
-- **web**: Dashboard Dash con hot-reload habilitado
+- **web**: Dashboard Dash
 - **bot**: Bot de Telegram con sincronización automática
-- **Healthcheck**: Verificación automática de estado del dashboard
 - **Volúmenes persistentes**: Para cache, datos y configuración
-- **Red interna**: Comunicación segura entre servicios
 
 ### **Comandos Útiles**
 ```bash
@@ -256,8 +219,7 @@ docker system prune -f
 
 ### **🗺️ Gestión de Fincas**
 1. **Registro**: Accede a "Gestión de Fincas" → Dibuja perímetro en el mapa
-2. **Configuración**: Completa nombre, cultivo, superficie y propietario  
-3. **Guardado**: Las fincas se integran automáticamente en otros módulos
+2. **Guardado**: Las fincas se integran automáticamente en otros módulos
 
 ### **🛰️ Análisis Satelital**
 1. **Selección**: Elige finca registrada o dibuja área temporal
@@ -307,12 +269,7 @@ docker system prune -f
 
 ## 📝 Licencia
 
-Este proyecto está licenciado bajo la **Licencia MIT** - consulta el archivo [LICENSE](LICENSE) para más detalles.
 
-```
-MIT License - Copyright (c) 2025 Germán José Padua Pleguezuelo
-Universidad de Granada - Máster en Ciencia de Datos
-```
 
 ---
 
