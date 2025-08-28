@@ -211,17 +211,6 @@ def create_precipitation_humidity_chart(df: pd.DataFrame) -> go.Figure:
     return fig
 
 def create_temperature_chart(df: pd.DataFrame, is_aggregated: bool = False) -> go.Figure:
-    """
-    Crea gráfico de temperatura con zonas de riesgo para repilo - Estilo Premium.
-    
-    Args:
-        df: DataFrame con datos meteorológicos
-        is_aggregated: Si True, usa datos agregados con columnas min/max/mean
-                      Si False, usa datos instantáneos
-                      
-    Returns:
-        Figura de Plotly con gráfico de temperaturas y zonas de riesgo mejorado visualmente
-    """
     if df.empty:
         return create_empty_chart("No hay datos de temperatura disponibles")
     
@@ -240,14 +229,10 @@ def create_temperature_chart(df: pd.DataFrame, is_aggregated: bool = False) -> g
                 fillcolor="rgba(239, 68, 68, 0.15)",
                 line=dict(color="rgba(239, 68, 68, 0.4)", width=1),
                 name="🔴 Riesgo Alto",
-                hovertemplate="<b>🔴 ZONA DE RIESGO ALTO</b><br>" +
-                             "Temperatura: 15-20°C<br>" +
-                             "Condiciones óptimas para repilo<br>" +
-                             "<extra></extra>",
+                hovertemplate="<b>🔴 ZONA DE RIESGO ALTO</b><br>Temperatura: 15-20°C<br>Condiciones óptimas para repilo<br><extra></extra>",
                 showlegend=True
             )
         )
-        
         # Zona moderada 12-15°C
         fig.add_trace(
             go.Scatter(
@@ -257,15 +242,11 @@ def create_temperature_chart(df: pd.DataFrame, is_aggregated: bool = False) -> g
                 fillcolor="rgba(245, 158, 11, 0.12)",
                 line=dict(color="rgba(245, 158, 11, 0.3)", width=1),
                 name="🟡 Riesgo Moderado",
-                hovertemplate="<b>🟡 ZONA DE RIESGO MODERADO</b><br>" +
-                             "Temperatura: 12-15°C<br>" +
-                             "Condiciones subóptimas<br>" +
-                             "<extra></extra>",
+                hovertemplate="<b>🟡 ZONA DE RIESGO MODERADO</b><br>Temperatura: 12-15°C<br>Condiciones subóptimas<br><extra></extra>",
                 showlegend=True
             )
         )
-        
-        # Zona moderada 20-22°C  
+        # Zona moderada 20-22°C
         fig.add_trace(
             go.Scatter(
                 x=[x_min, x_max, x_max, x_min, x_min],
@@ -274,194 +255,95 @@ def create_temperature_chart(df: pd.DataFrame, is_aggregated: bool = False) -> g
                 fillcolor="rgba(245, 158, 11, 0.12)",
                 line=dict(color="rgba(245, 158, 11, 0.3)", width=1),
                 name="🟡 Riesgo Moderado (Alta)",
-                hovertemplate="<b>🟡 ZONA DE RIESGO MODERADO</b><br>" +
-                             "Temperatura: 20-22°C<br>" +
-                             "Condiciones subóptimas<br>" +
-                             "<extra></extra>",
-                showlegend=False  # Evitar duplicado en leyenda
+                hovertemplate="<b>🟡 ZONA DE RIESGO MODERADO</b><br>Temperatura: 20-22°C<br>Condiciones subóptimas<br><extra></extra>",
+                showlegend=False
             )
         )
     
     if is_aggregated and 'Air_Temp_min' in df.columns:
-        # Datos agregados: mostrar min, media, máx - Estilo elegante
-        
-        # Línea de temperatura mínima
         fig.add_trace(
             go.Scatter(
-                x=df['Dates'],
-                y=df['Air_Temp_min'],
-                mode='lines+markers',
-                name='🌡️ Temp. Mínima',
-                line=dict(
-                    color='#3b82f6', 
-                    width=2, 
-                    dash='dash',
-                    shape='spline',
-                    smoothing=0.8
-                ),
-                marker=dict(
-                    size=4,
-                    color='#3b82f6',
-                    line=dict(color='white', width=1),
-                    symbol='circle'
-                ),
-                hovertemplate="<b>🌡️ Temperatura Mínima</b><br>" +
-                             "%{x|%d/%m/%Y}<br>" +
-                             "<b>%{y:.1f}°C</b><br>" +
-                             "<extra></extra>"
+                x=df['Dates'], y=df['Air_Temp_min'],
+                mode='lines+markers', name='🌡️ Temp. Mínima',
+                line=dict(color='#3b82f6', width=2, dash='dash', shape='spline', smoothing=0.8),
+                marker=dict(size=4, color='#3b82f6', line=dict(color='white', width=1), symbol='circle'),
+                hovertemplate="<b>🌡️ Temperatura Mínima</b><br>%{x|%d/%m/%Y}<br><b>%{y:.1f}°C</b><br><extra></extra>"
             )
         )
-        
-        # Línea de temperatura media (principal)
         fig.add_trace(
             go.Scatter(
-                x=df['Dates'],
-                y=df['Air_Temp_mean'],
-                mode='lines+markers',
-                name='🌡️ Temp. Media',
-                line=dict(
-                    color='#dc2626', 
-                    width=3,
-                    shape='spline',
-                    smoothing=0.8
-                ),
-                marker=dict(
-                    size=6,
-                    color='#dc2626',
-                    line=dict(color='white', width=1),
-                    symbol='circle'
-                ),
-                hovertemplate="<b>🌡️ Temperatura Media</b><br>" +
-                             "%{x|%d/%m/%Y}<br>" +
-                             "<b>%{y:.1f}°C</b><br>" +
-                             "<extra></extra>"
+                x=df['Dates'], y=df['Air_Temp_mean'],
+                mode='lines+markers', name='🌡️ Temp. Media',
+                line=dict(color='#dc2626', width=3, shape='spline', smoothing=0.8),
+                marker=dict(size=6, color='#dc2626', line=dict(color='white', width=1), symbol='circle'),
+                hovertemplate="<b>🌡️ Temperatura Media</b><br>%{x|%d/%m/%Y}<br><b>%{y:.1f}°C</b><br><extra></extra>"
             )
         )
-        
-        # Línea de temperatura máxima
         fig.add_trace(
             go.Scatter(
-                x=df['Dates'],
-                y=df['Air_Temp_max'],
-                mode='lines+markers',
-                name='🌡️ Temp. Máxima',
-                line=dict(
-                    color='#f59e0b', 
-                    width=2, 
-                    dash='dash',
-                    shape='spline',
-                    smoothing=0.8
-                ),
-                marker=dict(
-                    size=4,
-                    color='#f59e0b',
-                    line=dict(color='white', width=1),
-                    symbol='circle'
-                ),
-                hovertemplate="<b>🌡️ Temperatura Máxima</b><br>" +
-                             "%{x|%d/%m/%Y}<br>" +
-                             "<b>%{y:.1f}°C</b><br>" +
-                             "<extra></extra>"
+                x=df['Dates'], y=df['Air_Temp_max'],
+                mode='lines+markers', name='🌡️ Temp. Máxima',
+                line=dict(color='#f59e0b', width=2, dash='dash', shape='spline', smoothing=0.8),
+                marker=dict(size=4, color='#f59e0b', line=dict(color='white', width=1), symbol='circle'),
+                hovertemplate="<b>🌡️ Temperatura Máxima</b><br>%{x|%d/%m/%Y}<br><b>%{y:.1f}°C</b><br><extra></extra>"
             )
         )
     else:
-        # Datos instantáneos: temperatura única - Estilo elegante
         fig.add_trace(
             go.Scatter(
-                x=df['Dates'],
-                y=df['Air_Temp'],
-                mode='lines+markers',
-                name='🌡️ Temperatura',
-                line=dict(
-                    color='#dc2626', 
-                    width=3,
-                    shape='spline',
-                    smoothing=0.8
-                ),
-                marker=dict(
-                    size=5,
-                    color='#dc2626',
-                    line=dict(color='white', width=1),
-                    symbol='circle'
-                ),
-                hovertemplate="<b>🌡️ Temperatura</b><br>" +
-                             "%{x|%d/%m/%Y %H:%M}<br>" +
-                             "<b>%{y:.1f}°C</b><br>" +
-                             "<extra></extra>"
+                x=df['Dates'], y=df['Air_Temp'],
+                mode='lines+markers', name='🌡️ Temperatura',
+                line=dict(color='#dc2626', width=3, shape='spline', smoothing=0.8),
+                marker=dict(size=5, color='#dc2626', line=dict(color='white', width=1), symbol='circle'),
+                hovertemplate="<b>🌡️ Temperatura</b><br>%{x|%d/%m/%Y %H:%M}<br><b>%{y:.1f}°C</b><br><extra></extra>"
             )
         )
     
-    # Resaltar períodos críticos de temperatura con marcadores destacados
+    # Marcadores críticos
     temp_col = 'Air_Temp_mean' if is_aggregated else 'Air_Temp'
     if temp_col in df.columns:
         critical_temp = df[(df[temp_col] >= 15) & (df[temp_col] <= 20)]
         if not critical_temp.empty:
             fig.add_trace(
                 go.Scatter(
-                    x=critical_temp['Dates'],
-                    y=critical_temp[temp_col],
-                    mode='markers',
-                    name='🔥 Temperatura Crítica',
-                    marker=dict(
-                        color='#dc2626',
-                        size=12,
-                        symbol='diamond-wide',
-                        line=dict(color='white', width=3),
-                        opacity=1
-                    ),
-                    hovertemplate="<b>🔥 TEMPERATURA CRÍTICA</b><br>" +
-                                 "%{x}<br>" +
-                                 "<b>%{y:.1f}°C</b><br>" +
-                                 "🦠 <b>ALTO RIESGO DE REPILO</b><br>" +
-                                 "<extra></extra>"
+                    x=critical_temp['Dates'], y=critical_temp[temp_col],
+                    mode='markers', name='🔥 Temperatura Crítica',
+                    marker=dict(color='#dc2626', size=12, symbol='diamond-wide',
+                                line=dict(color='white', width=3), opacity=1),
+                    hovertemplate="<b>🔥 TEMPERATURA CRÍTICA</b><br>%{x}<br><b>%{y:.1f}°C</b><br>🦠 <b>ALTO RIESGO DE REPILO</b><br><extra></extra>"
                 )
             )
     
     # Layout premium
     fig.update_layout(
-        title=dict(
-            text="<b>🌡️ Evolución de Temperatura - Análisis de Riesgo de Repilo</b>",
-            x=0.5,
-            font=dict(size=16, color='#1f2937', family='Inter, sans-serif'),
-            pad=dict(b=20)
-        ),
-        xaxis=dict(
-            title="<b>Fecha y Hora</b>",
-            title_font=dict(size=14, color='#374151', family='Inter, sans-serif'),
-            tickfont=dict(size=11, color='#6b7280'),
-            gridcolor='rgba(107, 114, 128, 0.1)',
-            gridwidth=1,
-            showgrid=True,
-            zeroline=False
-        ),
-        yaxis=dict(
-            title="<b>Temperatura (°C)</b>",
-            title_font=dict(size=14, color='#374151', family='Inter, sans-serif'),
-            tickfont=dict(size=12, color='#6b7280'),
-            gridcolor='rgba(107, 114, 128, 0.1)',
-            gridwidth=1,
-            showgrid=True,
-            zeroline=False
-        ),
         template="plotly_white",
         hovermode='x unified',
         height=400,
         showlegend=True,
         legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="center",
-            x=0.5,
+            orientation="h", yanchor="bottom", y=1.02,
+            xanchor="center", x=0.5,
             bgcolor="rgba(255, 255, 255, 0.95)",
-            bordercolor="rgba(209, 213, 219, 0.8)",
-            borderwidth=1,
-            font=dict(size=11, family='Inter, sans-serif'),
-            itemsizing="constant"
+            bordercolor="rgba(209, 213, 219, 0.8)", borderwidth=1,
+            font=dict(size=11, family='Inter, sans-serif'), itemsizing="constant"
         ),
         plot_bgcolor='rgba(249, 250, 251, 0.3)',
         paper_bgcolor='#ffffff',
-        margin=dict(l=80, r=80, t=80, b=60),
+        margin=dict(l=80, r=80, t=110, b=60),  # ↑ margen superior
+        xaxis=dict(
+            title="<b>Fecha y Hora</b>",
+            title_font=dict(size=14, color='#374151', family='Inter, sans-serif'),
+            tickfont=dict(size=11, color='#6b7280'),
+            gridcolor='rgba(107, 114, 128, 0.1)', gridwidth=1,
+            showgrid=True, zeroline=False
+        ),
+        yaxis=dict(
+            title="<b>Temperatura (°C)</b>",
+            title_font=dict(size=14, color='#374151', family='Inter, sans-serif'),
+            tickfont=dict(size=12, color='#6b7280'),
+            gridcolor='rgba(107, 114, 128, 0.1)', gridwidth=1,
+            showgrid=True, zeroline=False
+        ),
         annotations=[
             dict(
                 x=0.5, y=1.15,
@@ -471,13 +353,12 @@ def create_temperature_chart(df: pd.DataFrame, is_aggregated: bool = False) -> g
                 font=dict(size=11, color='#dc2626', family='Inter, sans-serif'),
                 bgcolor="rgba(254, 242, 242, 0.95)",
                 bordercolor="rgba(239, 68, 68, 0.3)",
-                borderwidth=1,
-                borderpad=4,
-                xanchor='center'
+                borderwidth=1, borderpad=4,
+                xanchor='center',
+                yanchor='bottom'  # ← clave para que no tape la leyenda
             )
         ]
     )
-    
     return fig
 
 def create_empty_chart(message: str) -> go.Figure:

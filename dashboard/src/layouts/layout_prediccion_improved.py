@@ -124,13 +124,6 @@ def create_weekly_forecast_section():
     return create_chart_container(
         title="📊 Predicción Diaria - Próximos 7 Días",
         chart_component=html.Div([
-            # Descripción informativa
-            html.Div([
-                html.P([
-                    html.I(className="fas fa-info-circle me-2", style={'color': '#17a2b8'}),
-                    "Cada tarjeta muestra el resumen diario con análisis de riesgo de repilo para olivar"
-                ], className="text-muted mb-3", style={'fontSize': '14px'})
-            ]),
             # Contenedor de las tarjetas
             dcc.Loading([
                 html.Div(
@@ -144,13 +137,6 @@ def create_weekly_forecast_section():
                     ])
                 )
             ], type="default"),
-            # Información sobre el diseño
-            html.Div([
-                html.Small([
-                    html.I(className="fas fa-lightbulb me-1", style={'color': '#ffc107'}),
-                    "Las tarjetas se organizan automáticamente según el espacio disponible en pantalla"
-                ], className="text-muted", style={'fontSize': '12px'})
-            ], className="mt-2")
         ]),
         subtitle="🦠 Las tarjetas incluyen: temperaturas máx/mín, probabilidad de lluvia, humedad, viento y nivel de riesgo de repilo",
         actions=[
@@ -164,90 +150,94 @@ def create_weekly_forecast_section():
         
     )
 
-
 def create_unified_alerts_section():
-    """Sistema de alertas unificado que integra análisis de condiciones actuales, 48h y 7 días"""
-    return html.Div([
-        # Header de la sección
-        html.Div([
+    """Alertas unificadas: condiciones actuales, 48h y 7 días (estilo alineado con KPIs actuales)."""
+    return dbc.Card([
+        # Header (mismo estilo que create_current_kpis_section)
+        dbc.CardHeader([
             html.Div([
-                html.I(className="fas fa-shield-alt me-3",
-                      style={'fontSize': '2rem', 'color': '#28a745'}),
                 html.Div([
-                    html.H3("🛡️ Sistema de Alertas Integrado", className="mb-1 fw-bold text-success"),
-                ], className="d-inline-block")
-            ], className="d-flex align-items-center"),
-            create_help_button("modal-alertas", button_color="outline-warning"),
-            create_info_modal(
-                modal_id="modal-alertas",
-                title=MODAL_CONTENTS['alertas']['title'],
-                content_sections=MODAL_CONTENTS['alertas']['sections'],
-            ),
-        ], className="d-flex justify-content-between align-items-center mb-4"),
+                    html.I(className="fas fa-shield-alt me-2",
+                           style={'color': AGRI_THEME['colors']['primary']}),
+                    html.H4("🛡️ Alertas", className="mb-0 d-inline"),
+                    html.Small(" • Análisis actual, 48h y 7 días", className="text-muted ms-2"),
+                ], className="d-flex align-items-center"),
+                # Botón + modal de ayuda
+                create_help_button("modal-alertas", button_color="outline-warning"),
+                create_info_modal(
+                    modal_id="modal-alertas",
+                    title=MODAL_CONTENTS['alertas']['title'],
+                    content_sections=MODAL_CONTENTS['alertas']['sections'],
+                ),
+            ], className="d-flex justify-content-between align-items-center")
+        ], style={'backgroundColor': AGRI_THEME['colors']['bg_light']}),
+
+        # Body
+        dbc.CardBody([
+            # Tarjetas de estado (3 columnas, responsive)
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card(dbc.CardBody([
+                        html.Div([
+                            html.I(className="fas fa-clock me-2",
+                                   style={'color': '#17a2b8'}),
+                            html.H6("Condiciones actuales", className="mb-0 fw-bold text-primary"),
+                        ], className="d-flex align-items-center mb-2"),
+                        html.Div(
+                            id="current-risk-status",
+                            children=html.Span("Evaluando...", className="text-info small"),
+                            role="status", **{"aria-live": "polite"}
+                        ),
+                    ]), className="h-100", outline=True)
+                ], xs=12, md=4, className="mb-3"),
+
+                dbc.Col([
+                    dbc.Card(dbc.CardBody([
+                        html.Div([
+                            html.I(className="fas fa-hourglass-half me-2",
+                                   style={'color': '#fd7e14'}),
+                            html.H6("Próximas 48 horas", className="mb-0 fw-bold text-warning"),
+                        ], className="d-flex align-items-center mb-2"),
+                        html.Div(
+                            id="48h-risk-status",
+                            children=html.Span("Evaluando...", className="text-info small"),
+                            role="status", **{"aria-live": "polite"}
+                        ),
+                    ]), className="h-100", outline=True)
+                ], xs=12, md=4, className="mb-3"),
+
+                dbc.Col([
+                    dbc.Card(dbc.CardBody([
+                        html.Div([
+                            html.I(className="fas fa-calendar-week me-2",
+                                   style={'color': '#6f42c1'}),
+                            html.H6("Próximos 7 días", className="mb-0 fw-bold", style={'color': '#6f42c1'}),
+                        ], className="d-flex align-items-center mb-2"),
+                        html.Div(
+                            id="weekly-risk-status",
+                            children=html.Span("Evaluando...", className="text-info small"),
+                            role="status", **{"aria-live": "polite"}
+                        ),
+                    ]), className="h-100", outline=True, style={'borderColor': '#6f42c1'})
+                ], xs=12, md=4, className="mb-3"),
+            ], className="g-2 mb-2"),
+
+            # Contenedor de alertas detalladas (placeholder de carga)
+            html.Div(id="disease-risk-alerts", children=[
+                create_alert_card(
+                    message="🔄 Analizando condiciones y evaluando riesgos en todos los períodos...",
+                    alert_type="info",
+                    title="Cargando evaluación"
+                )
+            ])
+        ], className="p-3")
+    ], style=get_card_style('highlight'))
+
+
+
+
         
-        # Indicadores de estado por período de tiempo
-        dbc.Row([
-            dbc.Col([
-                dbc.Card([
-                    dbc.CardBody([
-                        html.Div([
-                            html.I(className="fas fa-clock me-2", style={'color': '#17a2b8', 'fontSize': '1.5rem'}),
-                            html.Div([
-                                html.H6("CONDICIONES ACTUALES", className="mb-0 fw-bold text-primary")
-                            ])
-                        ], className="d-flex align-items-center mb-2"),
-                        html.Div(id="current-risk-status", children=[
-                            html.Span("Evaluando...", className="text-info small")
-                        ])
-                    ])
-                ], className="h-100", color="primary", outline=True)
-            ], md=4),
-            dbc.Col([
-                dbc.Card([
-                    dbc.CardBody([
-                        html.Div([
-                            html.I(className="fas fa-hourglass-half me-2", style={'color': '#fd7e14', 'fontSize': '1.5rem'}),
-                            html.Div([
-                                html.H6("48 HORAS", className="mb-0 fw-bold text-warning")
-                            ])
-                        ], className="d-flex align-items-center mb-2"),
-                        html.Div(id="48h-risk-status", children=[
-                            html.Span("Evaluando...", className="text-info small")
-                        ])
-                    ])
-                ], className="h-100", color="warning", outline=True)
-            ], md=4),
-            dbc.Col([
-                dbc.Card([
-                    dbc.CardBody([
-                        html.Div([
-                            html.I(className="fas fa-calendar-week me-2", style={'color': '#6f42c1', 'fontSize': '1.5rem'}),
-                            html.Div([
-                                html.H6("7 DÍAS", className="mb-0 fw-bold", style={'color': '#6f42c1'})
-                            ])
-                        ], className="d-flex align-items-center mb-2"),
-                        html.Div(id="weekly-risk-status", children=[
-                            html.Span("Evaluando...", className="text-info small")
-                        ])
-                    ])
-                ], className="h-100", style={'borderColor': '#6f42c1'})
-            ], md=4)
-        ], className="mb-4"),
         
-        # Contenedor principal de alertas detalladas
-        html.Div(id="disease-risk-alerts", children=[
-            # Estado de carga inicial
-            dbc.Card([
-                dbc.CardBody([
-                    html.Div([
-                        html.I(className="fas fa-sync fa-spin me-2", style={'color': '#17a2b8'}),
-                        html.Span("Analizando condiciones meteorológicas y evaluando riesgos en todos los períodos...", 
-                                 className="fw-bold")
-                    ], className="text-center text-info")
-                ], className="py-4")
-            ], style={'border': '2px dashed #17a2b8', 'backgroundColor': 'rgba(23, 162, 184, 0.05)'})
-        ])
-    ], className="mb-4")
 
 def create_48h_forecast_section():
     """Gráfico predicción 48h con temperatura, humedad y precipitaciones con indicadores de riesgo"""

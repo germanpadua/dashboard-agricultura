@@ -689,6 +689,10 @@ def create_48h_forecast_chart(hourly_data: pd.DataFrame) -> go.Figure:
         row=2, col=1
     )
     
+    max_rain = hourly_data['rain'].max() if not hourly_data['rain'].empty else 0
+
+    upper_rain = np.ceil(max_rain) + 5 if max_rain > 0 else 10
+
     # Subplot 2: Precipitación - Eje secundario
     fig.update_yaxes(
         title_text="<b>Precipitación (mm)</b>",
@@ -697,6 +701,7 @@ def create_48h_forecast_chart(hourly_data: pd.DataFrame) -> go.Figure:
         secondary_y=True,
         row=2, col=1,
         rangemode="tozero",
+        range=[0, upper_rain],
         showgrid=False
     )
     

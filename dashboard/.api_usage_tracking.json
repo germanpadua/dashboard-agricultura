@@ -13,9 +13,16 @@
       "endpoints": {
         "copernicus_sentinel": 35
       }
+    },
+    "2025-08-28": {
+      "requests": 75,
+      "total_cost": 185.0566399999999,
+      "endpoints": {
+        "copernicus_sentinel": 75
+      }
     }
   },
-  "total_requests": 45,
-  "session_requests": 45,
+  "total_requests": 120,
+  "session_requests": 120,
   "last_reset": "2025-08-26"
 }

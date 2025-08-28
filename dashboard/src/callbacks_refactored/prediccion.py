@@ -1166,27 +1166,7 @@ def register_callbacks(app):
                 
                 if len(critical_hours) > 0 and risk_summary['max_risk_level'] != 'alto':
                     risk_summary['max_risk_level'] = 'alto'
-            
-            # Generar recomendaciones
-            if risk_summary['max_risk_level'] == 'alto':
-                risk_summary['recommendations'] = [
-                    "Tratamiento preventivo/pos-evento inmediato",
-                    "Activar plan de control completo",
-                    "Priorizar focos históricos y copa baja/interior",
-                    "Monitorear condiciones de mojado continuo"
-                ]
-            elif risk_summary['max_risk_level'] == 'moderado':
-                risk_summary['recommendations'] = [
-                    "Vigilancia estrecha de condiciones",
-                    "Intervenir si se repite episodio en 48-72h",
-                    "Alerta local; inspección y poda para mejorar aireación"
-                ]
-            else:
-                risk_summary['recommendations'] = [
-                    "Seguimiento rutinario; sin intervención urgente",
-                    "Condiciones no favorables para desarrollo de repilo"
-                ]
-            
+
             # Crear tarjetas de alerta
             alert_cards = []
             
@@ -1196,7 +1176,7 @@ def register_callbacks(app):
                     dbc.Col([
                         create_alert_card(
                             title="🚨 RIESGO ALTO DETECTADO",
-                            message=f"Condiciones críticas (15-20°C + mojado continuo) detectadas: {risk_summary['weekly_high_risk_days']} días esta semana, {risk_summary['hourly_high_risk_periods']} períodos en 48h. Tratamiento preventivo/pos-evento requerido.",
+                            message=f"Condiciones críticas (15-20°C + mojado continuo) detectadas: {risk_summary['weekly_high_risk_days']} días esta semana, {risk_summary['hourly_high_risk_periods']} períodos en 48h",
                             alert_type="danger"
                         )
                     ], md=6)
@@ -1206,7 +1186,7 @@ def register_callbacks(app):
                     dbc.Col([
                         create_alert_card(
                             title="⚠️ Riesgo Moderado",
-                            message="Condiciones subóptimas detectadas (12-15°C o 20-22°C + humedad >95%). Vigilancia estrecha recomendada. Inspeccionar y mejorar aireación (poda).",
+                            message="Condiciones subóptimas detectadas (12-15°C o 20-22°C + humedad >95%)",
                             alert_type="warning"
                         )
                     ], md=6)
@@ -1216,7 +1196,7 @@ def register_callbacks(app):
                     dbc.Col([
                         create_alert_card(
                             title="✅ Bajo Riesgo",
-                            message="Condiciones no favorables para repilo (<5°C o >25-28°C, mojado limitado). Seguimiento rutinario; sin intervención urgente.",
+                            message="Condiciones no favorables para repilo (<5°C o >25-28°C, mojado limitado)",
                             alert_type="success"
                         )
                     ], md=6)

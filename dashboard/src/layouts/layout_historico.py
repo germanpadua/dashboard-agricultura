@@ -497,6 +497,8 @@ def build_layout_historico_improved(df=None, kml_geojson=None):
         
         # Stores para datos
         dcc.Store(id="weather-data-store"),
+        dcc.Store(id="historical-alerts-store"),
+        dcc.Store(id="risk-analysis-store"),
         dcc.Store(id="current-filters-store", data={
             "period": "7d",
             "grouping": "none",
@@ -522,6 +524,307 @@ def build_layout_historico_improved(df=None, kml_geojson=None):
         'minHeight': '100vh',
         'padding': '1.5rem'
     })
+
+def create_smart_disease_alerts(weather_data, period_stats=None):
+    """
+    Crea alertas inteligentes de repilo basadas en análisis de datos históricos
+    """
+    if not weather_data or len(weather_data) == 0:
+        return _create_no_data_alert()
+    
+    alerts = []
+    risk_level = "low"
+    
+    # Análisis de condiciones de riesgo
+    risk_analysis = _analyze_repilo_conditions(weather_data, period_stats)
+    
+    # Generar alertas basadas en el análisis
+    alerts = _generate_contextual_alerts(risk_analysis, period_stats)
+    
+    # Determinar nivel de riesgo general
+    risk_level = _determine_overall_risk(alerts)
+    
+    return _create_alerts_display(alerts, risk_level, risk_analysis)
+
+def _analyze_repilo_conditions(weather_data, period_stats):
+    """Análisis científico de condiciones favorables para repilo"""
+    import pandas as pd
+    import numpy as np
+    
+    df = pd.DataFrame(weather_data)
+    if df.empty:
+        return {"risk_score": 0, "conditions": {}}
+    
+    analysis = {
+        "risk_score": 0,
+        "critical_days": 0,
+        "high_risk_days": 0,
+        "conditions": {},
+        "trends": {},
+        "period_summary": period_stats or {}
+    }
+    
+    # Condiciones críticas para repilo (Spilocaea oleagina)
+    if 'temperature' in df.columns and 'humidity' in df.columns:
+        # Temperatura óptima: 15-20°C, crítica: 12-22°C
+        temp_optimal = ((df['temperature'] >= 15) & (df['temperature'] <= 20)).sum()
+        temp_critical = ((df['temperature'] >= 12) & (df['temperature'] <= 22)).sum()
+        
+        # Humedad crítica: >85%, extrema: >95%
+        humidity_critical = (df['humidity'] >= 85).sum()
+        humidity_extreme = (df['humidity'] >= 95).sum()
+        
+        # Días con condiciones simultáneas críticas
+        critical_conditions = ((df['temperature'] >= 12) & (df['temperature'] <= 22) & (df['humidity'] >= 85)).sum()
+        extreme_conditions = ((df['temperature'] >= 15) & (df['temperature'] <= 20) & (df['humidity'] >= 95)).sum()
+        
+        analysis["critical_days"] = critical_conditions
+        analysis["conditions"] = {
+            "temp_optimal_days": temp_optimal,
+            "temp_critical_days": temp_critical,
+            "humidity_critical_days": humidity_critical,
+            "humidity_extreme_days": humidity_extreme,
+            "simultaneous_critical": critical_conditions,
+            "simultaneous_extreme": extreme_conditions
+        }
+        
+        # Cálculo de score de riesgo (0-100)
+        total_days = len(df)
+        if total_days > 0:
+            risk_score = 0
+            risk_score += (critical_conditions / total_days) * 40  # 40% del peso
+            risk_score += (humidity_extreme / total_days) * 30    # 30% del peso
+            risk_score += (temp_optimal / total_days) * 20       # 20% del peso
+            
+            # Bonus por precipitación si está disponible
+            if 'precipitation' in df.columns:
+                rainy_days = (df['precipitation'] > 0).sum()
+                risk_score += (rainy_days / total_days) * 10     # 10% del peso
+            
+            analysis["risk_score"] = min(100, risk_score)
+    
+    return analysis
+
+def _generate_contextual_alerts(risk_analysis, period_stats):
+    """Genera alertas contextuales basadas en el análisis de riesgo"""
+    alerts = []
+    risk_score = risk_analysis.get("risk_score", 0)
+    conditions = risk_analysis.get("conditions", {})
+    critical_days = risk_analysis.get("critical_days", 0)
+    
+    # Alerta crítica - Riesgo extremo (>70)
+    if risk_score > 70:
+        alerts.append({
+            "level": "danger",
+            "type": "RIESGO EXTREMO",
+            "icon": "fas fa-exclamation-triangle",
+            "title": "🚨 ALERTA CRÍTICA: Condiciones Extremadamente Favorables para Repilo",
+            "message": f"Score de riesgo: {risk_score:.1f}/100. Se detectaron {critical_days} días con condiciones críticas simultáneas. El ambiente es altamente propicio para el desarrollo y dispersión de esporas de Spilocaea oleagina.",
+            "priority": 1,
+            "actions": [
+                "ACCIÓN INMEDIATA: Aplicar tratamiento fungicida preventivo",
+                "Inspeccionar físicamente el olivar en las próximas 24-48 horas",
+                "Documentar síntomas iniciales si los hay (manchas amarillentas)",
+                "Preparar aplicaciones adicionales según evolución"
+            ],
+            "scientific_note": "Las condiciones actuales superan los umbrales críticos para la infección primaria de repilo (temp. 15-20°C + humedad >95%)"
+        })
+    
+    # Alerta alta - Riesgo alto (50-70)
+    elif risk_score > 50:
+        alerts.append({
+            "level": "warning",
+            "type": "RIESGO ALTO",
+            "icon": "fas fa-exclamation-circle",
+            "title": "⚠️ ALERTA ALTA: Condiciones Favorables para Desarrollo de Repilo",
+            "message": f"Score de riesgo: {risk_score:.1f}/100. Detectados {critical_days} días con condiciones propicias. El período presenta riesgo significativo para infecciones de repilo.",
+            "priority": 2,
+            "actions": [
+                "Preparar estrategia de tratamiento preventivo",
+                "Monitorear diariamente las condiciones meteorológicas",
+                "Realizar inspección visual del cultivo 2 veces por semana",
+                "Mantener equipos de aplicación listos para uso inmediato"
+            ],
+            "scientific_note": "Período con condiciones intermitentemente favorables. Vigilancia intensiva recomendada"
+        })
+    
+    # Alerta moderada - Vigilancia (30-50)
+    elif risk_score > 30:
+        alerts.append({
+            "level": "info",
+            "type": "VIGILANCIA",
+            "icon": "fas fa-eye",
+            "title": "👁️ VIGILANCIA: Condiciones Moderadas de Riesgo",
+            "message": f"Score de riesgo: {risk_score:.1f}/100. Algunas condiciones favorables detectadas. Mantener vigilancia preventiva.",
+            "priority": 3,
+            "actions": [
+                "Continuar monitoreo rutinario del cultivo",
+                "Revisar y ajustar calendario de tratamientos",
+                "Mantener registro de condiciones meteorológicas",
+                "Preparar estrategias según evolución del tiempo"
+            ],
+            "scientific_note": "Condiciones dentro del rango de vigilancia estándar para repilo"
+        })
+    
+    # Condición favorable - Riesgo bajo (<30)
+    else:
+        alerts.append({
+            "level": "success",
+            "type": "RIESGO BAJO",
+            "icon": "fas fa-check-shield",
+            "title": "✅ CONDICIONES FAVORABLES: Riesgo Bajo de Repilo",
+            "message": f"Score de riesgo: {risk_score:.1f}/100. Las condiciones meteorológicas del período no favorecen significativamente el desarrollo de repilo.",
+            "priority": 4,
+            "actions": [
+                "Mantener programa preventivo estacional estándar",
+                "Continuar inspecciones visuales mensuales",
+                "Aprovechar para labores de mantenimiento del olivar",
+                "Preparar estrategias para próximos períodos de riesgo"
+            ],
+            "scientific_note": "Período con condiciones desfavorables para el patógeno. Oportunidad para labores preventivas"
+        })
+    
+    # Alertas específicas adicionales basadas en condiciones
+    if conditions.get("humidity_extreme_days", 0) > 5:
+        alerts.append({
+            "level": "warning", 
+            "type": "HUMEDAD EXTREMA",
+            "icon": "fas fa-tint",
+            "title": "💧 ATENCIÓN: Períodos Prolongados de Humedad Extrema",
+            "message": f"Se registraron {conditions['humidity_extreme_days']} días con humedad >95%. Condiciones ideales para germinación de esporas.",
+            "priority": 2,
+            "actions": [
+                "Evaluar ventilación del olivar mediante poda",
+                "Considerar tratamientos fungicidas específicos",
+                "Monitorear drenaje y encharcamientos"
+            ]
+        })
+    
+    return alerts
+
+def _determine_overall_risk(alerts):
+    """Determina el nivel de riesgo general basado en las alertas"""
+    if not alerts:
+        return "low"
+    
+    priority_levels = [alert.get("priority", 4) for alert in alerts]
+    min_priority = min(priority_levels)
+    
+    if min_priority == 1:
+        return "critical"
+    elif min_priority == 2:
+        return "high"
+    elif min_priority == 3:
+        return "moderate"
+    else:
+        return "low"
+
+def _create_alerts_display(alerts, risk_level, risk_analysis):
+    """Crea la visualización de alertas con diseño profesional"""
+    if not alerts:
+        return _create_no_data_alert()
+    
+    # Colores y estilos según nivel de riesgo
+    risk_colors = {
+        "critical": {"color": "#dc3545", "bg": "#f8d7da", "border": "#dc3545"},
+        "high": {"color": "#fd7e14", "bg": "#fff3cd", "border": "#ffc107"},
+        "moderate": {"color": "#17a2b8", "bg": "#d1ecf1", "border": "#17a2b8"},
+        "low": {"color": "#28a745", "bg": "#d4edda", "border": "#28a745"}
+    }
+    
+    colors = risk_colors.get(risk_level, risk_colors["low"])
+    
+    alert_cards = []
+    for alert in alerts:
+        alert_card = dbc.Card([
+            dbc.CardHeader([
+                html.H6([
+                    html.I(className=f"{alert['icon']} me-2", style={'color': colors['color']}),
+                    alert["title"]
+                ], className="mb-0 fw-bold", style={'color': colors['color']})
+            ], style={'backgroundColor': colors['bg'], 'border': 'none'}),
+            dbc.CardBody([
+                html.P(alert["message"], className="mb-3"),
+                
+                # Nota científica si está disponible
+                *([dbc.Alert([
+                    html.I(className="fas fa-flask me-2"),
+                    html.Strong("Nota Científica: "),
+                    alert["scientific_note"]
+                ], color="info", className="py-2 mb-3")] if alert.get("scientific_note") else []),
+                
+                html.H6("🔧 Acciones Recomendadas:", className="mb-2 fw-bold"),
+                html.Ul([
+                    html.Li(action, className="mb-1") for action in alert.get("actions", [])
+                ], className="mb-0")
+            ], className="p-3")
+        ], style={
+            'border': f"2px solid {colors['border']}",
+            'borderRadius': '12px',
+            'boxShadow': f"0 4px 15px {colors['color']}20",
+            'marginBottom': '1rem'
+        })
+        alert_cards.append(alert_card)
+    
+    # Panel de resumen estadístico
+    risk_score = risk_analysis.get("risk_score", 0)
+    conditions = risk_analysis.get("conditions", {})
+    
+    stats_panel = dbc.Card([
+        dbc.CardHeader([
+            html.H6([
+                html.I(className="fas fa-chart-pie me-2", style={'color': colors['color']}),
+                f"Análisis Cuantitativo - Score de Riesgo: {risk_score:.1f}/100"
+            ], className="mb-0 fw-bold")
+        ], style={'backgroundColor': colors['bg']}),
+        dbc.CardBody([
+            dbc.Row([
+                dbc.Col([
+                    html.Div([
+                        html.H4(f"{conditions.get('simultaneous_critical', 0)}", 
+                               className="mb-1 fw-bold", style={'color': colors['color']}),
+                        html.Small("Días críticos", className="text-muted")
+                    ], className="text-center")
+                ], md=3),
+                dbc.Col([
+                    html.Div([
+                        html.H4(f"{conditions.get('humidity_extreme_days', 0)}", 
+                               className="mb-1 fw-bold", style={'color': colors['color']}),
+                        html.Small("Días humedad >95%", className="text-muted")
+                    ], className="text-center")
+                ], md=3),
+                dbc.Col([
+                    html.Div([
+                        html.H4(f"{conditions.get('temp_optimal_days', 0)}", 
+                               className="mb-1 fw-bold", style={'color': colors['color']}),
+                        html.Small("Días temp. óptima", className="text-muted")
+                    ], className="text-center")
+                ], md=3),
+                dbc.Col([
+                    html.Div([
+                        html.H4(f"{risk_level.upper()}", 
+                               className="mb-1 fw-bold", style={'color': colors['color']}),
+                        html.Small("Nivel de riesgo", className="text-muted")
+                    ], className="text-center")
+                ], md=3)
+            ])
+        ], className="py-3")
+    ], className="mb-3", style={
+        'border': f"1px solid {colors['border']}",
+        'borderRadius': '8px'
+    })
+    
+    return html.Div([
+        stats_panel,
+        html.Div(alert_cards)
+    ])
+
+def _create_no_data_alert():
+    """Alerta cuando no hay datos disponibles"""
+    return dbc.Alert([
+        html.I(className="fas fa-info-circle me-2"),
+        "📊 No hay datos suficientes para generar alertas. Seleccione un período con datos meteorológicos disponibles."
+    ], color="info", className="mb-4")
 
 # Función de compatibilidad
 def build_layout_historico(df=None, kml_geojson=None):
