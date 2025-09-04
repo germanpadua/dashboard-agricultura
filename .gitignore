@@ -6,4 +6,5 @@ __pycache__/
 .sat_cache_intelligent/
 logs/
 cache/
-
+.env
+.env.bot
