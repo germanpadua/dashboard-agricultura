@@ -50,6 +50,7 @@ from src.utils.forecast_plots import (
     analyze_disease_risk_forecast,
     create_empty_forecast_chart
 )
+
 from src.components.ui_components_improved import create_metric_card, create_alert_card
 
 # Configuración de logging
