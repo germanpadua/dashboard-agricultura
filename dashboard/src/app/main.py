@@ -103,7 +103,7 @@ def create_dashboard():
         assets_folder=str(ASSETS_PATH)
     )
     
-    app.title = "Dashboard Agricultura - Conde de Benalua"
+    app.title = "Dashboard Agricultura"
     
     # Configurar servido estático para overlays satelitales
     dynamic_map_dir = os.path.abspath("dynamic_map")

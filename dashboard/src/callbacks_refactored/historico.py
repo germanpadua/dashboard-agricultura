@@ -682,7 +682,7 @@ def register_callbacks(app):
                                     html.Div([
                                         html.I(className="fas fa-tint mb-2", 
                                               style={'fontSize': '1.8rem', 'color': '#6c757d'}),
-                                        html.H6("Seguimiento Hídrico", className="fw-bold mb-2 text-muted"),
+                                        html.H6("Control de Humedad", className="fw-bold mb-2 text-muted"),
                                         html.P("Esperando datos de humedad", className="small text-muted mb-2"),
                                         html.Div([
                                             html.Span("Estado: ", className="fw-bold"),
@@ -703,7 +703,7 @@ def register_callbacks(app):
                                     html.Div([
                                         html.I(className="fas fa-cloud-rain mb-2", 
                                               style={'fontSize': '1.8rem', 'color': '#6c757d'}),
-                                        html.H6("Gestión de Riego", className="fw-bold mb-2 text-muted"),
+                                        html.H6("Control de Precipitaciones", className="fw-bold mb-2 text-muted"),
                                         html.P("Esperando datos de precipitación", className="small text-muted mb-2"),
                                         html.Div([
                                             html.Span("Estado: ", className="fw-bold"),
@@ -812,7 +812,7 @@ def register_callbacks(app):
                                 html.Div([
                                     html.I(className="fas fa-tint mb-2", 
                                           style={'fontSize': '1.8rem', 'color': '#007bff'}),
-                                    html.H6("Seguimiento Hídrico", className="fw-bold mb-2"),
+                                    html.H6("Control de Humedad", className="fw-bold mb-2"),
                                     html.P(f"Humedad: {humidity}%", className="small text-muted mb-2"),
                                     html.Div([
                                         html.Span("Estado: ", className="fw-bold"),
@@ -836,7 +836,7 @@ def register_callbacks(app):
                                 html.Div([
                                     html.I(className="fas fa-cloud-rain mb-2", 
                                           style={'fontSize': '1.8rem', 'color': '#28a745'}),
-                                    html.H6("Gestión de Riego", className="fw-bold mb-2"),
+                                    html.H6("Control de Precipitaciones", className="fw-bold mb-2"),
                                     html.P(f"Lluvia: {rain} mm", className="small text-muted mb-2"),
                                     html.Div([
                                         html.Span("Estado: ", className="fw-bold"),

@@ -1,41 +1,50 @@
+version: "3.9"
+
 services:
   web:
     build: .
-    # Si NO renombraste la carpeta, usa: "/app/Telegram Bot" donde corresponda.
     working_dir: /app/dashboard
     command: python -m src.app.main
     ports:
       - "8050:8050"
     env_file:
-      - .env  # variables del dashboard (HOST, PORT, claves AEMET, etc.)
+      - .env
     restart: unless-stopped
+    # Requiere curl en la imagen (ya lo tienes en tu Dockerfile)
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8050/ || exit 1"]
       interval: 20s
       timeout: 3s
       retries: 5
-    # Durante desarrollo, puedes montar el código para hot-reload:
     volumes:
+      # Código del dashboard para hot-reload
       - type: bind
         source: ./dashboard
         target: /app/dashboard
+      # (Opcional) Si algún día activas cuenta de servicio para el bot o el dashboard:
       - type: bind
-        source: ./telegram_bot/service_account.json  
+        source: ./telegram_bot/service_account.json
         target: /secrets/service_account.json
         read_only: true
 
   bot:
     build: .
-    working_dir: /app/telegram_bot   # o "/app/Telegram Bot" si no renombraste
+    working_dir: /app/telegram_bot
     command: python main.py
     env_file:
-      - .env.bot  # aquí va TELEGRAM_BOT_TOKEN y demás secretos del bot
+      - .env.bot
     restart: unless-stopped
-    # Si tu bot necesita un credentials.json, móntalo como secreto/volumen:
-    # volumes:
-    #   - type: bind
-    #     source: ./telegram_bot/credentials.json   # o ./Telegram Bot/credentials.json
-    #     target: /secrets/credentials.json
-    #     read_only: true
-    # environment:
-    #   GOOGLE_APPLICATION_CREDENTIALS: /secrets/credentials.json
+    volumes:
+      # Código del bot (edición en caliente)
+      - type: bind
+        source: ./telegram_bot
+        target: /app/telegram_bot
+      # → Secrets generados FUERA de Docker (solución 1)
+      - type: bind
+        source: ./secrets/credentials.json
+        target: /app/telegram_bot/credentials.json
+        read_only: true
+      - type: bind
+        source: ./secrets/token.pickle
+        target: /app/telegram_bot/token.pickle
+        read_only: false

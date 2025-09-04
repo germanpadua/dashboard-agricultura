@@ -112,10 +112,20 @@ class TelegramDataSync:
             - Configura rutas tanto para datos como para imágenes estáticas
         """
         # Configuración de rutas por defecto del proyecto
-        bot_path = r"C:\Users\germa\OneDrive - UNIVERSIDAD DE GRANADA\Escritorio\GERMAN\TFM\Telegram Bot"
+        # En Docker, el archivo se monta en /secrets/service_account.json
+        # En desarrollo local, usar ruta relativa
+        if os.path.exists("/secrets/service_account.json"):
+            # Ejecutándose en Docker
+            default_credentials_path = "/secrets/service_account.json"
+        else:
+            # Ejecutándose en desarrollo local
+            current_file_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.abspath(os.path.join(current_file_dir, "..", "..", ".."))
+            bot_path = os.path.join(project_root, "telegram_bot")
+            default_credentials_path = os.path.join(bot_path, "service_account.json")
         
         # Rutas de configuración
-        self.credentials_path = credentials_path or os.path.join(bot_path, "service_account.json")
+        self.credentials_path = credentials_path or default_credentials_path
         self.folder_id = folder_id or "1N7DHpYhhoqVgLD-rgsuUP9Q_5vyHC07W"  # Carpeta en Google Drive
         
         # Configuración de sistema de cache local
@@ -156,20 +166,63 @@ class TelegramDataSync:
             - Si las credenciales no existen, el servicio queda como None
             - Los errores se registran pero no interrumpen la ejecución
         """
+        print(f"🔍 DEBUG: Iniciando configuración de Google Drive...")
+        print(f"🔍 DEBUG: Ruta de credenciales: {self.credentials_path}")
+        print(f"🔍 DEBUG: Verificando si existe archivo de credenciales...")
+        
         try:
             if os.path.exists(self.credentials_path):
+                print(f"✅ DEBUG: Archivo de credenciales encontrado")
+                print(f"🔍 DEBUG: Intentando cargar credenciales de cuenta de servicio...")
+                
                 # Configurar credenciales con scope de solo lectura
                 credentials = Credentials.from_service_account_file(
                     self.credentials_path,
                     scopes=['https://www.googleapis.com/auth/drive.readonly']
                 )
+                print(f"✅ DEBUG: Credenciales cargadas correctamente")
+                print(f"🔍 DEBUG: Creando cliente del servicio Google Drive...")
+                
                 # Crear cliente del servicio
                 self.drive_service = build('drive', 'v3', credentials=credentials)
                 print("✅ Servicio de Google Drive inicializado correctamente")
+                
+                # Verificar que el servicio funciona con una consulta simple
+                print(f"🔍 DEBUG: Probando conexión con Google Drive...")
+                try:
+                    test_query = self.drive_service.files().list(pageSize=1).execute()
+                    print(f"✅ DEBUG: Conexión con Google Drive verificada correctamente")
+                except Exception as test_error:
+                    print(f"❌ DEBUG: Error al probar conexión: {test_error}")
+                    self.drive_service = None
+                    
             else:
-                print(f"⚠️ Archivo de credenciales no encontrado: {self.credentials_path}")
+                print(f"❌ DEBUG: Archivo de credenciales NO encontrado en: {self.credentials_path}")
+                print(f"🔍 DEBUG: Verificando directorio padre...")
+                parent_dir = os.path.dirname(self.credentials_path)
+                if os.path.exists(parent_dir):
+                    print(f"✅ DEBUG: Directorio padre existe: {parent_dir}")
+                    print(f"🔍 DEBUG: Contenido del directorio:")
+                    try:
+                        files = os.listdir(parent_dir)
+                        for file in files[:10]:  # Mostrar solo primeros 10 archivos
+                            print(f"  - {file}")
+                    except Exception as list_error:
+                        print(f"❌ DEBUG: Error listando directorio: {list_error}")
+                else:
+                    print(f"❌ DEBUG: Directorio padre NO existe: {parent_dir}")
+                self.drive_service = None
+                
+        except ImportError as import_error:
+            print(f"❌ DEBUG: Error de importación - falta dependencia: {import_error}")
+            print(f"🔍 DEBUG: Verificar que google-auth y google-api-python-client estén instalados")
+            self.drive_service = None
         except Exception as e:
-            print(f"❌ Error inicializando Google Drive: {e}")
+            print(f"❌ DEBUG: Error general inicializando Google Drive: {e}")
+            print(f"🔍 DEBUG: Tipo de error: {type(e).__name__}")
+            import traceback
+            print(f"🔍 DEBUG: Traceback completo:")
+            print(traceback.format_exc())
             self.drive_service = None
     
 # ==============================================================================

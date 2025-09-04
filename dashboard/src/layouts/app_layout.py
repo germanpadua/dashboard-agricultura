@@ -48,7 +48,7 @@ def create_dashboard_header():
                         }
                     ),
                     html.P(
-                        "Benalua, Almería • TFM Master en Ciencia de Datos • UGR",
+                        "Benalúa, Granada • TFM Master en Ciencia de Datos • UGR",
                         style={
                             'fontSize': AGRI_THEME['fonts']['sizes']['sm'],
                             'color': AGRI_THEME['colors']['text_secondary'],
@@ -59,38 +59,6 @@ def create_dashboard_header():
                 ], style={'textAlign': 'center'})
             ], width=12)
         ]),
-        
-        # Indicadores de estado del sistema
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    html.I(className="fas fa-satellite me-2", style={'color': AGRI_THEME['colors']['success']}),
-                    html.Span("Satelital", style={'fontWeight': '500'}),
-                    html.Span(" • Activo", style={'color': AGRI_THEME['colors']['success'], 'fontSize': '0.9rem'})
-                ], className="d-inline-block me-4")
-            ], width=3),
-            dbc.Col([
-                html.Div([
-                    html.I(className="fas fa-cloud me-2", style={'color': AGRI_THEME['colors']['info']}),
-                    html.Span("Meteorológico", style={'fontWeight': '500'}),
-                    html.Span(" • Conectado", style={'color': AGRI_THEME['colors']['info'], 'fontSize': '0.9rem'})
-                ], className="d-inline-block me-4")
-            ], width=3),
-            dbc.Col([
-                html.Div([
-                    html.I(className="fab fa-telegram me-2", style={'color': AGRI_THEME['colors']['primary']}),
-                    html.Span("Telegram Bot", style={'fontWeight': '500'}),
-                    html.Span(" • Disponible", style={'color': AGRI_THEME['colors']['primary'], 'fontSize': '0.9rem'})
-                ], className="d-inline-block me-4")
-            ], width=3),
-            dbc.Col([
-                html.Div([
-                    html.I(className="fas fa-database me-2", style={'color': AGRI_THEME['colors']['warning']}),
-                    html.Span("Base de Datos", style={'fontWeight': '500'}),
-                    html.Span(" • Sincronizado", style={'color': AGRI_THEME['colors']['warning'], 'fontSize': '0.9rem'})
-                ], className="d-inline-block")
-            ], width=3)
-        ], className="justify-content-center text-center mt-3", style={'fontSize': '0.9rem'})
         
     ], style={
         **get_card_style(),
@@ -304,11 +272,7 @@ def create_dashboard_footer():
                         }
                     ),
                     html.P([
-                        "Benalua, Almería",
-                        html.Br(),
-                        "Olivicultura de Precisión",
-                        html.Br(),
-                        "Agricultura Inteligente"
+                        "Benalúa, Granada",
                     ], style={
                         'fontSize': AGRI_THEME['fonts']['sizes']['sm'],
                         'color': AGRI_THEME['colors']['text_secondary'],
@@ -349,36 +313,6 @@ def create_dashboard_footer():
                 ], style={'textAlign': 'center'})
             ], md=3),
             
-            dbc.Col([
-                html.Div([
-                    html.I(className="fas fa-seedling", style={
-                        'fontSize': '1.5rem', 
-                        'color': AGRI_THEME['colors']['warning'],
-                        'marginBottom': '0.5rem'
-                    }),
-                    html.H6(
-                        "Objetivos del Sistema",
-                        style={
-                            'color': AGRI_THEME['colors']['primary'],
-                            'fontWeight': '600',
-                            'marginBottom': '0.25rem',
-                            'fontFamily': AGRI_THEME['fonts']['primary']
-                        }
-                    ),
-                    html.P([
-                        "Monitoreo de Cultivos",
-                        html.Br(),
-                        "Detección de Enfermedades",
-                        html.Br(),
-                        "Toma de Decisiones"
-                    ], style={
-                        'fontSize': AGRI_THEME['fonts']['sizes']['sm'],
-                        'color': AGRI_THEME['colors']['text_secondary'],
-                        'marginBottom': '0',
-                        'fontFamily': AGRI_THEME['fonts']['primary']
-                    })
-                ], style={'textAlign': 'center'})
-            ], md=3)
         ], className="mb-3"),
         
         # Separador
@@ -414,19 +348,6 @@ def create_dashboard_footer():
             'fontWeight': '500'
         }),
         
-        # Copyright
-        html.P(
-            f"© 2025 Dashboard Agrícola Inteligente - TFM Ciencia de Datos UGR",
-            style={
-                'textAlign': 'center',
-                'fontSize': AGRI_THEME['fonts']['sizes']['xs'],
-                'color': AGRI_THEME['colors']['text_secondary'],
-                'marginTop': '1rem',
-                'marginBottom': '0',
-                'opacity': '0.7',
-                'fontFamily': AGRI_THEME['fonts']['primary']
-            }
-        )
     ], style={
         **get_card_style(),
         'background': f'linear-gradient(135deg, {AGRI_THEME["colors"]["bg_card"]} 0%, {AGRI_THEME["colors"]["bg_light"]} 100%)',
