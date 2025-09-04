@@ -7,8 +7,6 @@
 
 Dashboard interactivo de para el monitoreo y análisis integral de fincas agrícolas, especialmente olivares. Integra datos satelitales (Sentinel-2), meteorológicos (AEMET) y análisis temporal avanzado.
 
-![Dashboard Principal](dashboard/assets/screenshots/dashboard-main.png)
-*📷  Captura del dashboard principal *
 
 ---
 
@@ -237,7 +235,6 @@ docker system prune -f
 1. **Variables**: Selecciona temperatura, humedad, NDVI u otros índices
 2. **Período**: Define rango temporal (recomendado: mínimo 1 año)
 3. **Comparación**: Analiza tendencias y detecta patrones estacionales
-4. **Exportación**: Descarga reportes en PDF o CSV
 
 ### **📱 Sistema de Detecciones**
 1. **Configuración**: Configura el bot de Telegram con tu token
@@ -245,15 +242,7 @@ docker system prune -f
 3. **Procesamiento**: El bot extrae coordenadas GPS y metadatos automáticamente
 4. **Almacenamiento**: Las detecciones se sincronizan con Google Drive
 5. **Visualización**: Monitorea incidencias desde el dashboard web
-6. **Análisis**: Utiliza mapas de calor y estadísticas temporales
-7. **Exportación**: Descarga datos KML para análisis en GIS
 
-
----
-
-## 📚 Referencias Científicas
-
-1. 
 
 ---
 
@@ -264,11 +253,6 @@ docker system prune -f
 🎓 Máster en Ciencia de Datos - Universidad de Granada  
 🔗 LinkedIn: [linkedin.com/in/german-jose-padua-pleguezuelo/](https://www.linkedin.com/in/german-jose-padua-pleguezuelo/)  
 🐙 GitHub: [github.com/germanpadua](https://github.com/germanpadua)
-
----
-
-## 📝 Licencia
-
 
 
 ---
