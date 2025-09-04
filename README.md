@@ -7,7 +7,7 @@
 
 Dashboard interactivo de para el monitoreo y análisis integral de fincas agrícolas, especialmente olivares. Integra datos satelitales (Sentinel-2), meteorológicos (AEMET) y análisis temporal avanzado.
 
-![Dashboard Principal](assets/screenshots/dashboard-main.png)
+![Dashboard Principal](dashboard/assets/screenshots/dashboard-main.png)
 *📷  Captura del dashboard principal *
 
 ---
@@ -21,7 +21,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Análisis temporal** con series de datos automáticas
 - **Visualización orientada a agricultores** con métricas simplificadas
 
-![Análisis Satelital](assets/screenshots/satellite-analysis.png)
+![Análisis Satelital](dashboard/assets/screenshots/satellite-analysis.png)
 *📷 Captura mostrando el mapa satelital con overlay NDVI, gráficos de evolución y KPIs para agricultores*
 
 ### 🌤️ **Predicciones Meteorológicas Inteligentes**
@@ -31,7 +31,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Gráficos interactivos** con zonas de riesgo visualmente destacadas
 - **Sistema de caché inteligente** para optimizar consultas
 
-![Predicciones Meteorológicas](assets/screenshots/weather-forecast.png)
+![Predicciones Meteorológicas](dashboard/assets/screenshots/weather-forecast.png)
 *📷 Captura del módulo meteorológico mostrando las weather cards, gráfico 48h con zonas de riesgo y sistema de alertas*
 
 ### 🏡 **Gestión Integral de Fincas**
@@ -41,7 +41,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Mapas duales**: vista satelital (ArcGIS) y calles (OpenStreetMap)
 - **Sistema de métricas** dinámicas por explotación
 
-![Gestión de Fincas](assets/screenshots/farm-management.png)
+![Gestión de Fincas](dashboard/assets/screenshots/farm-management.png)
 *📷 Captura mostrando el mapa con fincas registradas, formulario de nueva finca y tarjetas de fincas existentes*
 
 ### 📈 **Análisis Histórico Temporal**
@@ -51,7 +51,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Predicciones estadísticas** basadas en datos históricos
 - **Reportes automáticos** de tendencias y anomalías
 
-![Análisis Histórico](assets/screenshots/historical-analysis.png)
+![Análisis Histórico](dashboard/assets/screenshots/historical-analysis.png)
 *📷 Captura de gráficos de evolución temporal, análisis de tendencias y comparaciones interanuales*
 
 ### 📱 **Sistema de Detección de Enfermedades**
@@ -63,7 +63,7 @@ Dashboard interactivo de para el monitoreo y análisis integral de fincas agríc
 - **Dashboard web** con galería interactiva y mapas de calor
 - **Sistema KML** para exportar detecciones a Google Earth
 
-![Sistema de Detecciones](assets/screenshots/disease-detection.png)
+![Sistema de Detecciones](dashboard/assets/screenshots/disease-detection.png)
 *📷  Captura del dashboard de detecciones mostrando el mapa con incidencias, galería de fotos y estadísticas*
 
 ---
