@@ -51,6 +51,12 @@ from src.utils.forecast_plots import (
     create_empty_forecast_chart
 )
 
+from src.utils.weather_utils import (
+    get_municipio_code,
+    get_prediccion_diaria,
+    get_prediccion_horaria,
+)
+
 from src.components.ui_components_improved import create_metric_card, create_alert_card
 
 # Configuración de logging
@@ -227,6 +233,103 @@ def is_cache_valid(timestamp_str):
     except Exception as e:
         logger.warning(f"⚠️ Error validando caché: {e}")
         return False
+
+def _parse_daily_aemet(data):
+    """Parsea la predicción diaria de AEMET a DataFrame estandarizado."""
+    try:
+        dias = data[0].get("prediccion", {}).get("dia", [])
+    except Exception:
+        return pd.DataFrame()
+
+    records = []
+    for dia in dias:
+        temp = dia.get("temperatura", {})
+        hum = dia.get("humedadRelativa", {})
+        rain_list = dia.get("probPrecipitacion", dia.get("precipitacion", []))
+        rain_val = 0
+        if isinstance(rain_list, list) and rain_list:
+            first = rain_list[0]
+            rain_val = float(first.get("value", 0)) if isinstance(first, dict) else float(first)
+        viento_list = dia.get("viento", [])
+        wind_speed = float(viento_list[0].get("velocidad", np.nan)) if viento_list else np.nan
+        wind_dir = viento_list[0].get("direccion") if viento_list else None
+        estado_list = dia.get("estadoCielo", [])
+        estado = estado_list[0].get("descripcion") if estado_list else ""
+        hummax = float(hum.get("maxima", np.nan))
+        hummin = float(hum.get("minima", np.nan))
+        humidity = hummax if not np.isnan(hummax) else hummin
+        records.append({
+            "date": pd.to_datetime(dia.get("fecha")),
+            "temp_max": float(temp.get("maxima", np.nan)),
+            "temp_min": float(temp.get("minima", np.nan)),
+            "humidity": humidity,
+            "hummax": hummax,
+            "hummin": hummin,
+            "rain": rain_val,
+            "wind_speed": wind_speed,
+            "viento_dir": wind_dir,
+            "pressure": np.nan,
+            "estado": estado,
+        })
+
+    df = pd.DataFrame(records)
+    if not df.empty:
+        analysis = analyze_disease_risk_forecast(df)
+        df["risk_level"] = [d["risk_level"] for d in analysis["risk_days"]]
+    return df
+
+
+def _parse_hourly_aemet(data):
+    """Parsea la predicción horaria de AEMET a DataFrame estándar."""
+    try:
+        dias = data[0].get("prediccion", {}).get("dia", [])
+    except Exception:
+        return pd.DataFrame()
+
+    records = []
+    for dia in dias:
+        date = dia.get("fecha")
+        temps = {t.get("periodo"): t.get("value") for t in dia.get("temperatura", [])}
+        hums = {h.get("periodo"): h.get("value") for h in dia.get("humedadRelativa", [])}
+        rains = {r.get("periodo"): r.get("value") for r in dia.get("precipitacion", [])}
+        winds = {
+            w.get("periodo"): (w.get("velocidad"), w.get("direccion"))
+            for w in dia.get("viento", [])
+        }
+
+        for periodo, temp in temps.items():
+            hour = str(periodo)[:2]
+            dt = pd.to_datetime(f"{date} {hour}:00")
+            wind_speed, wind_dir = winds.get(periodo, (np.nan, None))
+            records.append({
+                "datetime": dt,
+                "temperature": float(temp),
+                "humidity": float(hums.get(periodo, np.nan)),
+                "rain": float(rains.get(periodo, 0)),
+                "wind_speed": float(wind_speed) if wind_speed is not None else np.nan,
+                "wind_dir": wind_dir,
+            })
+
+    df = pd.DataFrame(records)
+    if not df.empty:
+        df.sort_values("datetime", inplace=True)
+        df = df.head(48)
+    return df
+
+
+def fetch_aemet_forecast(municipality: str):
+    """Obtiene predicción real usando utilidades de weather_utils."""
+    try:
+        cod_muni = get_municipio_code(municipality)
+        daily_raw = get_prediccion_diaria(cod_muni)
+        hourly_raw = get_prediccion_horaria(cod_muni)
+        daily_df = _parse_daily_aemet(daily_raw)
+        hourly_df = _parse_hourly_aemet(hourly_raw)
+        return daily_df, hourly_df
+    except Exception as e:
+        logger.error(f"Error obteniendo predicción de AEMET: {e}")
+        return pd.DataFrame(), pd.DataFrame()
+    
 
 # ===============================================================================
 #                         FUNCIONES AUXILIARES
@@ -841,9 +944,12 @@ def register_callbacks(app):
                     return cached_data['data'], municipio
                 
                 # Si no hay caché válido, generar nuevos datos
-                logger.info("🔄 Generando nuevos datos con zonas de riesgo para Benalúa")
-                forecast_data = generate_enhanced_mock_forecast_data(municipio)
-                hourly_data = generate_mock_hourly_data(municipio)
+                logger.info("🔄 Generando nuevos datos desde AEMET para Benalúa")
+                forecast_data, hourly_data = fetch_aemet_forecast(municipio)
+                if forecast_data.empty:
+                    forecast_data = generate_enhanced_mock_forecast_data(municipio)
+                if hourly_data.empty:
+                    hourly_data = generate_mock_hourly_data(municipio)
                 
                 # Preparar datos mejorados para Benalúa
                 data = {
@@ -860,9 +966,12 @@ def register_callbacks(app):
                 
             else:
                 # Para otros municipios usar datos estándar
-                logger.info("📍 Municipio estándar - generando datos con análisis de riesgo")
-                forecast_data = generate_enhanced_mock_forecast_data(municipio)
-                hourly_data = generate_mock_hourly_data(municipio)
+                logger.info("📍 Municipio estándar - obteniendo datos desde AEMET")
+                forecast_data, hourly_data = fetch_aemet_forecast(municipio)
+                if forecast_data.empty:
+                    forecast_data = generate_enhanced_mock_forecast_data(municipio)
+                if hourly_data.empty:
+                    hourly_data = generate_mock_hourly_data(municipio)
                 
                 data = {
                     'weekly': forecast_data.to_dict('records') if not forecast_data.empty else [],
